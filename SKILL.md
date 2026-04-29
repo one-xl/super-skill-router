@@ -35,10 +35,10 @@ Then follow the router rules:
 - Read `CATEGORY_INDEX.md` first.
 - Read only candidate category tags.
 - Read only candidate subcategory tags.
+- Read auxiliary Skill rules when the task needs coding, review, refactoring, testing, or implementation discipline.
 - Read full `SKILL.md` only when the tag says it is needed.
 - Use `skills.sh` as the default external Skill discovery and installation source.
 - Generate Skill Install Proposal when a suitable external Skill exists but is not installed locally.
 - Generate Skill Update Proposal when no suitable Skill exists or reusable experience appears.
 - Do not update Skill files unless the user explicitly confirms.
 - Do not download or install external Skills unless the user explicitly confirms.
-

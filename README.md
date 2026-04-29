@@ -13,6 +13,7 @@
 - 支持任务结束后生成 Skill 更新建议。
 - 默认不自动覆盖 Skill，除非用户明确确认。
 - 支持在本地缺少合适 Skill 时到 [skills.sh](https://skills.sh/) 查找候选并生成 Skill Install Proposal。
+- 支持根据任务类型自动选择辅助 Skill，例如编码任务自动使用 `karpathy-guidelines`。
 
 ## 目录结构
 
@@ -79,6 +80,8 @@ BUSINESS_SKILL_ROOT = skills
 4. 只有当标签命中读取条件时，才读取完整 `SKILL.md`。
 5. 任务结束后，如果产生可复用经验，生成 `Skill Update Proposal`。
 
+编码类任务会自动把 `karpathy-guidelines` 作为辅助 Skill，用于约束实现方式：先理解、保持简单、做外科手术式修改、验证结果。
+
 更完整的中文使用教程见 [docs/zh-usage.md](docs/zh-usage.md)。
 
 ## 外部 Skill 安装
@@ -104,6 +107,7 @@ BUSINESS_SKILL_ROOT = skills
 - 具体领域知识应放在业务 Skill 中，而不是放进 Router。
 - 外部 Skill 默认只从 `skills.sh`、本地注册表或用户明确提供的来源获取。
 - 不从未知来源静默下载 Skill。
+- 辅助 Skill 必须显式登记，不扫描全部全局 Skill。
 
 ## 添加新 Skill
 
@@ -120,4 +124,3 @@ BUSINESS_SKILL_ROOT = skills
 ## 标识
 
 一XL
-

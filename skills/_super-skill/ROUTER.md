@@ -120,7 +120,33 @@ SUPER_SKILL_ROOT/[category]/[subcategory]/SKILL.md
 - 不要为了展示路由过程而浪费输出。
 - 不要把标签文件当成完整知识来源。
 
-## Step 9：任务后更新判断
+## Step 9：选择辅助 Skill
+
+如果任务涉及以下任一情况，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/AUXILIARY_SKILLS.md
+```
+
+- 写代码
+- 修改代码
+- 重构代码
+- 审查代码
+- 修复 bug
+- 添加测试
+- 设计实现方案
+
+根据 `AUXILIARY_SKILLS.md` 选择 0 到 3 个辅助 Skill。
+
+编码类任务默认选择：
+
+```text
+karpathy-guidelines
+```
+
+辅助 Skill 只作为执行约束，不替代主 Skill。不要扫描全部全局 Skill。
+
+## Step 10：任务后更新判断
 
 任务结束后，读取：
 
@@ -130,7 +156,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 
 判断是否需要生成 Skill Update Proposal。
 
-## Step 10：fallback 规则
+## Step 11：fallback 规则
 
 如果 `BUSINESS_SKILL_ROOT` 中没有合适分类或 Skill：
 
@@ -143,7 +169,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 7. Proposal 的目标路径应优先指向 `BUSINESS_SKILL_ROOT`。
 8. 不要默认修改 Super Skill Router 框架本身。
 
-## Step 11：外部 Skill 安装
+## Step 12：外部 Skill 安装
 
 只有当用户明确说“确认安装”时，才执行安装。
 
@@ -156,4 +182,3 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 - 如果目标文件已存在，先读取原内容，再做最小修改或停止等待确认。
 - 安装后更新对应 `SUBCATEGORY_INDEX.md` 和 `SKILL_TAG.md`。
 - 不要静默安装到全局 Codex skills，除非用户明确要求全局安装。
-

@@ -146,6 +146,31 @@ Do not scan all Skills or read every Skill file at once.
 
 这样 Agent 会先用全局 Router 做任务分流，再读取项目自己的业务 Skill。
 
+### 自动使用编码辅助 Skill
+
+Router 支持按任务类型自动选择辅助 Skill。
+
+默认规则：
+
+- 写代码、改代码、修 bug、重构、审查、加测试时，自动选择 `karpathy-guidelines`。
+- `karpathy-guidelines` 只做辅助约束，不替代主 Skill。
+- 主 Skill 仍由任务领域决定，例如前端任务主 Skill 是 `frontend/web-frontend`，后端任务主 Skill 是 `backend/api-backend`。
+- 不扫描全部全局 Skill，只读取 `AUXILIARY_SKILLS.md` 中显式登记的辅助 Skill。
+
+示例：
+
+```text
+用户任务：帮我修复这个 React 表单 bug。
+主 Skill：frontend/web-frontend
+辅助 Skill：karpathy-guidelines
+```
+
+执行效果：
+
+- 先按前端 Skill 理解 UI 和代码结构。
+- 再用 `karpathy-guidelines` 约束实现：最小修改、避免过度设计、明确验证。
+- 输出时默认不展示内部路由细节，除非用户询问使用了哪些 Skill。
+
 ## 6. 缺少 Skill 时如何处理
 
 默认不自动下载或覆盖 Skill。
@@ -261,4 +286,3 @@ skills/
 - 默认不扫描全部 Skill。
 - 默认不一次性读取全部 Skill。
 - 默认不静默下载外部 Skill。
-

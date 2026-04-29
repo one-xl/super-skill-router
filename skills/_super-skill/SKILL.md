@@ -17,6 +17,7 @@ description: Route AI Agent tasks to the right Skill with progressive disclosure
 - 支持多个 Skill 组合。
 - 支持任务结束后的 Skill 更新建议。
 - 支持缺少本地 Skill 时通过 `skills.sh` 生成外部 Skill 安装建议。
+- 支持根据任务类型自动选择辅助 Skill。
 - 支持同仓库模式和外部依赖模式。
 
 ## 核心变量
@@ -54,6 +55,7 @@ BUSINESS_SKILL_ROOT = skills
 10. 如果没有合适 Skill，不要硬套，应生成 Skill Update Proposal。
 11. 如果本地缺少 Skill，应优先通过 `skills.sh` 生成 Skill Install Proposal。
 12. 不要从未知来源静默下载或安装 Skill。
+13. 辅助 Skill 必须显式登记，不要扫描全部全局 Skill。
 
 ## 默认读取流程
 
@@ -65,9 +67,10 @@ BUSINESS_SKILL_ROOT = skills
 6. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
 7. 读取候选子类的 `SKILL_TAG.md`。
 8. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
-9. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
-10. 执行任务。
-11. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
+9. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
+10. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
+11. 执行任务。
+12. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
 
 ## 路径优先级
 
@@ -93,6 +96,7 @@ BUSINESS_SKILL_ROOT = skills
 - 回答用户任务时，不要暴露过多内部路由细节。
 - 如果用户要求说明使用了哪些 Skill，可以给出主 Skill 和辅助 Skill。
 - 如果任务跨领域，必须区分主 Skill 和辅助 Skill。
+- 编码任务默认把 `karpathy-guidelines` 作为辅助 Skill，用于控制实现质量。
 - 如果产生可复用经验，末尾生成 Skill Update Proposal。
 - 如果缺少本地 Skill 但 `skills.sh` 有候选，生成 Skill Install Proposal。
 - 默认不要直接修改 Skill 文件。
@@ -102,6 +106,6 @@ BUSINESS_SKILL_ROOT = skills
 ## 继续读取
 
 - 路由细则：读取 `SUPER_SKILL_ROOT/_super-skill/ROUTER.md`。
+- 辅助 Skill：需要时读取 `SUPER_SKILL_ROOT/_super-skill/AUXILIARY_SKILLS.md`。
 - 外部 Skill 获取：需要时读取 `SUPER_SKILL_ROOT/_super-skill/ACQUISITION_RULES.md`。
 - 更新判断：任务结束后读取 `SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md`。
-

@@ -35,11 +35,14 @@ Then follow the router rules:
 - Read `CATEGORY_INDEX.md` first.
 - Read `SKILL_POLICY.md` before installing, updating, or using auxiliary Skills.
 - Read `PROJECT_PROFILE.md` for code, build, deployment, or repository-structure tasks.
+- Read `ROUTING_CONFIDENCE.md` when category or subcategory choice is uncertain.
 - Read only candidate category tags.
 - Read only candidate subcategory tags.
 - Read auxiliary Skill rules when the task needs coding, review, refactoring, testing, or implementation discipline.
 - Read full `SKILL.md` only when the tag says it is needed.
 - Use `ROUTING_TRACE.md` only when the user asks why a Skill was selected or asks for routing details.
+- Use `SKILL_LOCK.md` rules after confirmed external Skill installation or update.
+- Use `HEALTH_CHECK.md` only when the user asks to validate, audit, or repair Skill structure.
 - Use `skills.sh` as the default external Skill discovery and installation source.
 - Generate Skill Install Proposal when a suitable external Skill exists but is not installed locally.
 - Generate Skill Update Proposal when no suitable Skill exists or reusable experience appears.

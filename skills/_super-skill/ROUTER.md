@@ -58,6 +58,14 @@ SUPER_SKILL_ROOT/_super-skill/PROJECT_PROFILE.md
 
 如果无法判断，选择最可能的大类，并在必要时提出一个最小问题。
 
+如果分类或子类选择不确定，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/ROUTING_CONFIDENCE.md
+```
+
+根据置信度决定继续、提出一个最小问题，或生成 Proposal。不要通过读取大量 Skill 来提高置信度。
+
 ## Step 6：读取候选大类标签
 
 对每个候选大类，优先读取：
@@ -211,4 +219,15 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 - 安装前说明来源、目标路径和将新增或覆盖的文件。
 - 如果目标文件已存在，先读取原内容，再做最小修改或停止等待确认。
 - 安装后更新对应 `SUBCATEGORY_INDEX.md` 和 `SKILL_TAG.md`。
+- 安装后读取 `SUPER_SKILL_ROOT/_super-skill/SKILL_LOCK.md`，生成或更新 `BUSINESS_SKILL_ROOT/SKILL_LOCK.md` 记录。
 - 不要静默安装到全局 Codex skills，除非用户明确要求全局安装。
+
+## Step 16：Skill Health Check
+
+只有在用户要求检查、验证、审计或修复 Skill 结构时，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/HEALTH_CHECK.md
+```
+
+健康检查只能按索引读取标签和检查引用文件存在性。不要读取所有完整 `SKILL.md`，不要递归扫描全部目录。

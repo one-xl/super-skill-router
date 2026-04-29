@@ -15,6 +15,7 @@
 - 支持在本地缺少合适 Skill 时到 [skills.sh](https://skills.sh/) 查找候选并生成 Skill Install Proposal。
 - 支持根据任务类型自动选择辅助 Skill，例如编码任务自动使用 `karpathy-guidelines`。
 - 支持轻量项目识别、Skill 使用策略和可选路由解释。
+- 支持路由置信度、外部 Skill lockfile 和结构健康检查。
 
 ## 目录结构
 
@@ -88,6 +89,9 @@ Router 还提供：
 - `SKILL_POLICY.md`：定义自动使用、确认安装、覆盖更新等边界。
 - `PROJECT_PROFILE.md`：只读取少量高信号文件来辅助判断项目类型。
 - `ROUTING_TRACE.md`：用户要求时解释主 Skill、辅助 Skill 和置信度。
+- `ROUTING_CONFIDENCE.md`：在路由不确定时决定继续、提问或生成 Proposal。
+- `SKILL_LOCK.md`：记录外部 Skill 的来源、安装命令、审计状态和目标路径。
+- `HEALTH_CHECK.md`：按索引检查 Skill 结构，不读取所有完整 Skill。
 
 更完整的中文使用教程见 [docs/zh-usage.md](docs/zh-usage.md)。
 
@@ -126,6 +130,7 @@ Router 还提供：
 - `SKILL_TAG.template.md`
 - `SKILL.template.md`
 - `SKILL_REGISTRY.template.md`
+- `SKILL_LOCK.template.md`
 
 新增大类时，同步更新 `skills/_super-skill/CATEGORY_INDEX.md`。新增子类时，同步更新对应分类的 `SUBCATEGORY_INDEX.md`。
 

@@ -214,6 +214,65 @@ Routing Trace
 - 原因: 任务涉及 React 表单 bug，前端 Skill 处理领域知识，karpathy-guidelines 约束实现方式。
 ```
 
+### Routing Confidence
+
+`ROUTING_CONFIDENCE.md` 用于判断路由置信度。
+
+置信度分为：
+
+- `high`：分类和子类都明确，直接执行。
+- `medium`：分类明确但有少量不确定，按最小安全组合执行。
+- `low`：分类或子类不清晰，优先问一个最小问题。
+
+关键原则：
+
+- 不通过读取大量 Skill 来提高置信度。
+- 低置信度时不要静默安装外部 Skill。
+- 如果缺口可复用，生成 Skill Update Proposal 或 Skill Install Proposal。
+
+### Skill Lock
+
+`SKILL_LOCK.md` 用于记录外部 Skill 的来源和安装信息。
+
+当用户确认安装外部 Skill 后，Router 会建议在业务 Skill 根目录写入：
+
+```text
+BUSINESS_SKILL_ROOT/SKILL_LOCK.md
+```
+
+记录内容包括：
+
+- Skill 名称
+- 分类和子类
+- 来源 URL
+- 安装命令
+- 安装目标
+- 安装日期
+- 审计状态
+
+Lockfile 不包含密钥、token、私有绝对路径或机器特定凭据。
+
+### Skill Health Check
+
+`HEALTH_CHECK.md` 用于检查 Skill 结构。
+
+它只在你明确要求时运行，例如：
+
+```text
+使用 super-skill-router 检查当前 skills 结构是否健康。
+```
+
+检查范围：
+
+- `CATEGORY_INDEX.md` 引用的分类是否存在。
+- 分类是否有 `CATEGORY_TAG.md` 和 `SUBCATEGORY_INDEX.md`。
+- 子类是否有 `SKILL_TAG.md`。
+- `SKILL_TAG.md` 是否有明确读取完整 Skill 的条件。
+- 引用的 `SKILL.md` 是否存在。
+- `SKILL_LOCK.md` 中记录的外部 Skill 是否仍存在。
+
+它不会默认读取所有完整 `SKILL.md`，也不会递归扫描整个目录。
+
 ## 6. 缺少 Skill 时如何处理
 
 默认不自动下载或覆盖 Skill。

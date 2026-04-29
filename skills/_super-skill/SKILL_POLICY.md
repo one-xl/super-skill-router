@@ -25,8 +25,10 @@
 - 读取 1 到 3 个候选子类的 `SKILL_TAG.md`。
 - 读取命中条件的完整 `SKILL.md`。
 - 读取 `PROJECT_PROFILE.md` 做轻量项目识别。
+- 读取 `ROUTING_CONFIDENCE.md` 判断路由不确定性。
 - 读取 `AUXILIARY_SKILLS.md` 选择已登记辅助 Skill。
 - 读取 `ROUTING_TRACE.md` 生成内部路由摘要。
+- 读取 `HEALTH_CHECK.md` 执行用户明确要求的结构检查。
 
 ## 需要用户确认
 
@@ -37,6 +39,7 @@
 - 安装外部 Skill。
 - 覆盖已有 Skill 文件。
 - 修改 Skill 索引文件。
+- 写入或更新 `SKILL_LOCK.md`。
 - 修改 Codex 全局 `~/.codex/skills`。
 - 将未审计或低置信度来源加入 `SKILL_REGISTRY.md`。
 
@@ -70,4 +73,3 @@
 - 新外部来源进入 `Skill Install Proposal`。
 - 只有用户明确说“确认更新”时，才修改 Skill 文件。
 - 只有用户明确说“确认安装”时，才安装外部 Skill。
-

@@ -19,6 +19,7 @@ description: Route AI Agent tasks to the right Skill with progressive disclosure
 - 支持缺少本地 Skill 时通过 `skills.sh` 生成外部 Skill 安装建议。
 - 支持根据任务类型自动选择辅助 Skill。
 - 支持轻量项目识别、Skill 使用策略和可选路由解释。
+- 支持路由置信度、外部 Skill 锁定记录和结构健康检查。
 - 支持同仓库模式和外部依赖模式。
 
 ## 核心变量
@@ -59,6 +60,9 @@ BUSINESS_SKILL_ROOT = skills
 13. 辅助 Skill 必须显式登记，不要扫描全部全局 Skill。
 14. 项目识别只读取少量根目录高信号文件。
 15. 默认不输出完整路由过程，除非用户要求。
+16. 路由低置信度时，不要通过读取大量 Skill 来试错。
+17. 外部 Skill 安装后应记录 Skill Lock。
+18. 健康检查只按索引验证结构，不读取所有完整 Skill。
 
 ## 默认读取流程
 
@@ -67,16 +71,19 @@ BUSINESS_SKILL_ROOT = skills
 3. 读取 `SKILL_POLICY.md`，确认自动读取、安装、更新和辅助 Skill 边界。
 4. 如果任务涉及代码、构建、部署、测试或项目结构，读取 `PROJECT_PROFILE.md` 做轻量项目识别。
 5. 根据用户任务和项目画像选择候选大类。
-6. 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
-7. 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
-8. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
-9. 读取候选子类的 `SKILL_TAG.md`。
-10. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
-11. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
-12. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
-13. 执行任务。
-14. 如用户要求说明路由过程，读取 `ROUTING_TRACE.md` 输出简短摘要。
-15. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
+6. 如果分类或子类选择不确定，读取 `ROUTING_CONFIDENCE.md` 判断继续、提问或生成 Proposal。
+7. 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
+8. 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
+9. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
+10. 读取候选子类的 `SKILL_TAG.md`。
+11. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
+12. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
+13. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
+14. 外部 Skill 安装或更新完成后，读取 `SKILL_LOCK.md` 并生成锁定记录建议。
+15. 执行任务。
+16. 如用户要求说明路由过程，读取 `ROUTING_TRACE.md` 输出简短摘要。
+17. 如用户要求检查 Skill 结构，读取 `HEALTH_CHECK.md`。
+18. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
 
 ## 路径优先级
 
@@ -106,6 +113,8 @@ BUSINESS_SKILL_ROOT = skills
 - 如果用户要求解释 Skill 选择，使用 `ROUTING_TRACE.md` 的简短格式。
 - 如果产生可复用经验，末尾生成 Skill Update Proposal。
 - 如果缺少本地 Skill 但 `skills.sh` 有候选，生成 Skill Install Proposal。
+- 外部 Skill 安装后，生成或更新 Skill Lock 记录。
+- 用户要求健康检查时，按索引输出结构检查结果。
 - 默认不要直接修改 Skill 文件。
 - 只有用户明确说“确认更新”时，才执行文件更新。
 - 只有用户明确说“确认安装”时，才安装外部 Skill。
@@ -115,7 +124,10 @@ BUSINESS_SKILL_ROOT = skills
 - 路由细则：读取 `SUPER_SKILL_ROOT/_super-skill/ROUTER.md`。
 - 使用策略：需要安装、更新、辅助 Skill 或低置信度判断时读取 `SUPER_SKILL_ROOT/_super-skill/SKILL_POLICY.md`。
 - 项目画像：代码、构建、部署、测试任务可读取 `SUPER_SKILL_ROOT/_super-skill/PROJECT_PROFILE.md`。
+- 路由置信度：分类或子类不确定时读取 `SUPER_SKILL_ROOT/_super-skill/ROUTING_CONFIDENCE.md`。
 - 辅助 Skill：需要时读取 `SUPER_SKILL_ROOT/_super-skill/AUXILIARY_SKILLS.md`。
 - 路由解释：用户要求时读取 `SUPER_SKILL_ROOT/_super-skill/ROUTING_TRACE.md`。
 - 外部 Skill 获取：需要时读取 `SUPER_SKILL_ROOT/_super-skill/ACQUISITION_RULES.md`。
+- Skill Lock：外部 Skill 安装或更新后读取 `SUPER_SKILL_ROOT/_super-skill/SKILL_LOCK.md`。
+- 健康检查：用户要求验证、审计或修复 Skill 结构时读取 `SUPER_SKILL_ROOT/_super-skill/HEALTH_CHECK.md`。
 - 更新判断：任务结束后读取 `SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md`。

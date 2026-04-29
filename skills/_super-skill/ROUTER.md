@@ -52,7 +52,7 @@ BUSINESS_SKILL_ROOT/[category]/CATEGORY_TAG.md
 SUPER_SKILL_ROOT/[category]/CATEGORY_TAG.md
 ```
 
-如果两者都不存在，则记录为缺失分类，后续生成 Skill Update Proposal。
+如果两者都不存在，则记录为缺失分类，后续生成 Skill Install Proposal 或 Skill Update Proposal。
 
 ## Step 5：读取子类索引
 
@@ -137,7 +137,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 1. 检查 `SUPER_SKILL_ROOT` 下是否有示例 Skill。
 2. 如果有合适示例 Skill，可以使用。
 3. 如果没有，读取 `SUPER_SKILL_ROOT/_super-skill/ACQUISITION_RULES.md`。
-4. 根据 `SKILL_REGISTRY.md` 判断是否有可信外部 Skill 候选。
+4. 优先通过 `skills.sh` 搜索和详情信息判断是否有外部 Skill 候选。
 5. 如果有候选，生成 Skill Install Proposal。
 6. 如果没有候选，生成 Skill Update Proposal。
 7. Proposal 的目标路径应优先指向 `BUSINESS_SKILL_ROOT`。
@@ -149,9 +149,11 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 
 安装时：
 
-- 只使用 `SKILL_REGISTRY.md` 中列出的来源，或用户本次明确提供的来源。
+- 优先使用 `skills.sh` 推荐的安装方式：`npx skills add <skill-name-or-source>`。
+- 只使用 `skills.sh`、`SKILL_REGISTRY.md` 中列出的来源，或用户本次明确提供的来源。
 - 优先安装到 `BUSINESS_SKILL_ROOT/[category]/[subcategory]`。
 - 安装前说明来源、目标路径和将新增或覆盖的文件。
 - 如果目标文件已存在，先读取原内容，再做最小修改或停止等待确认。
 - 安装后更新对应 `SUBCATEGORY_INDEX.md` 和 `SKILL_TAG.md`。
 - 不要静默安装到全局 Codex skills，除非用户明确要求全局安装。
+

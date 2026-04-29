@@ -6,7 +6,21 @@
 
 ## 推荐来源
 
-`SKILL_REGISTRY.md` 中登记的 `database-migration` Skill。
+`skills.sh` 搜索结果中的 `database-migration` Skill。
+
+示例：
+
+```text
+skills.sh id: example/database-migration
+skills.sh url: https://skills.sh/example/database-migration
+installUrl: https://github.com/example/database-migration
+```
+
+## 安装命令
+
+```text
+npx skills add https://github.com/example/database-migration
+```
 
 ## 安装目标
 

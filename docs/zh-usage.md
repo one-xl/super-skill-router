@@ -115,24 +115,6 @@ Codex 的全局 Skill 目录通常是：
 ~/.codex/vendor/super-skill-router
 ```
 
-全局入口负责设置：
-
-```text
-SUPER_SKILL_ROOT = ~/.codex/vendor/super-skill-router/skills
-```
-
-如果当前项目存在 `skills/`，则：
-
-```text
-BUSINESS_SKILL_ROOT = 当前项目/skills
-```
-
-否则：
-
-```text
-BUSINESS_SKILL_ROOT = SUPER_SKILL_ROOT
-```
-
 ## 5. 如何模拟 Claude Code 的效果
 
 建议组合：
@@ -173,11 +155,49 @@ Do not scan all Skills or read every Skill file at once.
 1. Router 先检查 `BUSINESS_SKILL_ROOT`。
 2. 再检查 `SUPER_SKILL_ROOT` 示例 Skill。
 3. 如果仍不够，读取 `ACQUISITION_RULES.md`。
-4. 再读取 `SKILL_REGISTRY.md` 查找可信来源。
-5. 生成 `Skill Install Proposal`。
-6. 只有用户明确说“确认安装”时，才下载、复制或更新索引。
+4. 优先到 `https://skills.sh/` 搜索候选 Skill。
+5. 可选读取 `SKILL_REGISTRY.md` 中缓存的可信来源。
+6. 生成 `Skill Install Proposal`。
+7. 只有用户明确说“确认安装”时，才下载、复制或更新索引。
 
 这样可以避免 Agent 静默安装未知仓库内容。
+
+### skills.sh 安装流程
+
+Router 使用 `skills.sh` 时遵循以下流程：
+
+1. 根据任务生成搜索关键词。
+2. 查询 `https://skills.sh/api/v1/skills/search?q=[query]&limit=5`。
+3. 读取候选 Skill 详情和审计信息。
+4. 排除明显重复、低相关或高风险候选。
+5. 生成包含来源、安装命令和目标路径的 `Skill Install Proposal`。
+6. 用户确认后运行安装命令。
+
+常用安装命令：
+
+```text
+npx skills add <skill-name-or-source>
+```
+
+如果 `skills.sh` 提供 `installUrl`：
+
+```text
+npx skills add <installUrl>
+```
+
+默认建议关闭安装遥测。
+
+Windows PowerShell：
+
+```powershell
+$env:DISABLE_TELEMETRY='1'; npx skills add <skill-name-or-source>
+```
+
+macOS / Linux：
+
+```sh
+DISABLE_TELEMETRY=1 npx skills add <skill-name-or-source>
+```
 
 ## 7. 添加业务 Skill
 
@@ -213,6 +233,12 @@ skills/
 
 ```text
 使用 super-skill-router 判断这个任务是否需要新增或安装 Skill：...
+```
+
+让 Router 从 skills.sh 查找外部 Skill：
+
+```text
+如果本地没有合适 Skill，请到 skills.sh 查找候选，并给我 Skill Install Proposal。
 ```
 
 确认安装外部 Skill：

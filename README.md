@@ -12,7 +12,7 @@
 - 支持只读取标签文件，不一次性读取全部 Skill。
 - 支持任务结束后生成 Skill 更新建议。
 - 默认不自动覆盖 Skill，除非用户明确确认。
-- 支持在本地缺少合适 Skill 时生成 Skill Install Proposal。
+- 支持在本地缺少合适 Skill 时到 [skills.sh](https://skills.sh/) 查找候选并生成 Skill Install Proposal。
 
 ## 目录结构
 
@@ -83,15 +83,17 @@ BUSINESS_SKILL_ROOT = skills
 
 ## 外部 Skill 安装
 
-当 `BUSINESS_SKILL_ROOT` 和 `SUPER_SKILL_ROOT` 都没有合适 Skill 时，Router 可以读取 `skills/_super-skill/ACQUISITION_RULES.md` 和 `SKILL_REGISTRY.md`，判断是否存在可安装的外部 Skill。
+当 `BUSINESS_SKILL_ROOT` 和 `SUPER_SKILL_ROOT` 都没有合适 Skill 时，Router 可以读取 `skills/_super-skill/ACQUISITION_RULES.md`，并通过 `skills.sh` 查找可安装的外部 Skill。
 
 默认策略：
 
 - 可以自动判断缺失 Skill。
+- 可以通过 `skills.sh` 搜索候选 Skill。
 - 可以生成 `Skill Install Proposal`。
 - 不默认下载或安装外部 Skill。
-- 只有用户明确确认安装时，才下载或复制 Skill。
+- 只有用户明确确认安装时，才下载、安装或更新索引。
 - 外部依赖模式下，优先安装到 `BUSINESS_SKILL_ROOT`，不修改 Router 框架。
+- 推荐安装命令：`npx skills add <skill-name-or-source>`。
 
 ## 设计边界
 
@@ -100,6 +102,7 @@ BUSINESS_SKILL_ROOT = skills
 - 不把标签文件写成完整知识库。
 - 不把 Super Skill 写成超大知识库。
 - 具体领域知识应放在业务 Skill 中，而不是放进 Router。
+- 外部 Skill 默认只从 `skills.sh`、本地注册表或用户明确提供的来源获取。
 - 不从未知来源静默下载 Skill。
 
 ## 添加新 Skill
@@ -117,3 +120,4 @@ BUSINESS_SKILL_ROOT = skills
 ## 标识
 
 一XL
+

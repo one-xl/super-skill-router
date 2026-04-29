@@ -1,6 +1,6 @@
 ---
 name: super-skill-router
-description: Global entrypoint for Super Skill Router. Use for non-trivial AI Agent tasks that may benefit from selecting, combining, or maintaining Skills through progressive routing instead of reading all Skill files at once.
+description: Global entrypoint for Super Skill Router. Use for non-trivial AI Agent tasks that may benefit from selecting, combining, acquiring, or maintaining Skills through progressive routing instead of reading all Skill files at once.
 ---
 
 # Super Skill Router Global Entrypoint
@@ -36,7 +36,9 @@ Then follow the router rules:
 - Read only candidate category tags.
 - Read only candidate subcategory tags.
 - Read full `SKILL.md` only when the tag says it is needed.
+- Use `skills.sh` as the default external Skill discovery and installation source.
+- Generate Skill Install Proposal when a suitable external Skill exists but is not installed locally.
 - Generate Skill Update Proposal when no suitable Skill exists or reusable experience appears.
-- Generate Skill Install Proposal when a suitable trusted external Skill exists but is not installed locally.
 - Do not update Skill files unless the user explicitly confirms.
 - Do not download or install external Skills unless the user explicitly confirms.
+

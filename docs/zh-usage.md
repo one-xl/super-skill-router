@@ -171,6 +171,49 @@ Router 支持按任务类型自动选择辅助 Skill。
 - 再用 `karpathy-guidelines` 约束实现：最小修改、避免过度设计、明确验证。
 - 输出时默认不展示内部路由细节，除非用户询问使用了哪些 Skill。
 
+### Skill Policy
+
+`SKILL_POLICY.md` 定义 Router 的安全边界：
+
+- 哪些 Skill 可以自动读取。
+- 哪些辅助 Skill 可以自动使用。
+- 什么时候必须等待用户确认。
+- 外部 Skill 是否允许安装。
+- 低置信度路由时如何处理。
+
+默认策略是：可以自动读取标签和必要 Skill，但安装、覆盖、更新都必须确认。
+
+### Project Profile
+
+`PROJECT_PROFILE.md` 用于轻量识别项目类型。
+
+它只允许读取根目录少量高信号文件，例如：
+
+- `package.json`
+- `tsconfig.json`
+- `Dockerfile`
+- `pyproject.toml`
+- `*.csproj`
+- `README.md`
+- `AGENTS.md`
+
+它不会递归扫描源码目录。识别结果只用于提高分类选择准确性。
+
+### Routing Trace
+
+默认不输出完整路由过程。
+
+当你问“你用了哪些 Skill”或“为什么这么选”时，Router 可以输出：
+
+```text
+Routing Trace
+- 主 Skill: frontend/web-frontend
+- 辅助 Skill: karpathy-guidelines
+- 外部 Skill: none
+- 置信度: high
+- 原因: 任务涉及 React 表单 bug，前端 Skill 处理领域知识，karpathy-guidelines 约束实现方式。
+```
+
 ## 6. 缺少 Skill 时如何处理
 
 默认不自动下载或覆盖 Skill。

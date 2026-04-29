@@ -14,6 +14,7 @@
 - 默认不自动覆盖 Skill，除非用户明确确认。
 - 支持在本地缺少合适 Skill 时到 [skills.sh](https://skills.sh/) 查找候选并生成 Skill Install Proposal。
 - 支持根据任务类型自动选择辅助 Skill，例如编码任务自动使用 `karpathy-guidelines`。
+- 支持轻量项目识别、Skill 使用策略和可选路由解释。
 
 ## 目录结构
 
@@ -82,6 +83,12 @@ BUSINESS_SKILL_ROOT = skills
 
 编码类任务会自动把 `karpathy-guidelines` 作为辅助 Skill，用于约束实现方式：先理解、保持简单、做外科手术式修改、验证结果。
 
+Router 还提供：
+
+- `SKILL_POLICY.md`：定义自动使用、确认安装、覆盖更新等边界。
+- `PROJECT_PROFILE.md`：只读取少量高信号文件来辅助判断项目类型。
+- `ROUTING_TRACE.md`：用户要求时解释主 Skill、辅助 Skill 和置信度。
+
 更完整的中文使用教程见 [docs/zh-usage.md](docs/zh-usage.md)。
 
 ## 外部 Skill 安装
@@ -108,6 +115,7 @@ BUSINESS_SKILL_ROOT = skills
 - 外部 Skill 默认只从 `skills.sh`、本地注册表或用户明确提供的来源获取。
 - 不从未知来源静默下载 Skill。
 - 辅助 Skill 必须显式登记，不扫描全部全局 Skill。
+- 项目识别只读取少量根目录高信号文件，不递归扫描源码。
 
 ## 添加新 Skill
 

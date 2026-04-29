@@ -30,7 +30,27 @@ SUPER_SKILL_ROOT/_super-skill/CATEGORY_INDEX.md
 - 一次性读取全部 `SKILL_TAG.md`
 - 一次性读取全部 `SKILL.md`
 
-## Step 3：选择候选大类
+## Step 3：读取策略边界
+
+读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/SKILL_POLICY.md
+```
+
+用于确认哪些行为可以自动执行，哪些行为必须用户确认。
+
+## Step 4：轻量项目识别
+
+如果任务涉及代码、构建、部署、测试或项目结构，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/PROJECT_PROFILE.md
+```
+
+只读取该文件允许的根目录高信号文件，不递归扫描源码。
+
+## Step 5：选择候选大类
 
 根据 `CATEGORY_INDEX.md` 的关键词标签，选择 1 到 3 个候选大类。
 
@@ -38,7 +58,7 @@ SUPER_SKILL_ROOT/_super-skill/CATEGORY_INDEX.md
 
 如果无法判断，选择最可能的大类，并在必要时提出一个最小问题。
 
-## Step 4：读取候选大类标签
+## Step 6：读取候选大类标签
 
 对每个候选大类，优先读取：
 
@@ -54,7 +74,7 @@ SUPER_SKILL_ROOT/[category]/CATEGORY_TAG.md
 
 如果两者都不存在，则记录为缺失分类，后续生成 Skill Install Proposal 或 Skill Update Proposal。
 
-## Step 5：读取子类索引
+## Step 7：读取子类索引
 
 如果 `CATEGORY_TAG.md` 判断该大类相关，则读取：
 
@@ -68,7 +88,7 @@ BUSINESS_SKILL_ROOT/[category]/SUBCATEGORY_INDEX.md
 SUPER_SKILL_ROOT/[category]/SUBCATEGORY_INDEX.md
 ```
 
-## Step 6：读取候选子类标签
+## Step 8：读取候选子类标签
 
 根据 `SUBCATEGORY_INDEX.md`，选择 1 到 3 个候选子类。
 
@@ -90,7 +110,7 @@ fallback 路径：
 SUPER_SKILL_ROOT/[category]/[subcategory]/SKILL_TAG.md
 ```
 
-## Step 7：读取完整 Skill
+## Step 9：读取完整 Skill
 
 只有当 `SKILL_TAG.md` 中的“读取完整 Skill 的条件”命中时，才读取：
 
@@ -110,7 +130,7 @@ fallback 路径：
 SUPER_SKILL_ROOT/[category]/[subcategory]/SKILL.md
 ```
 
-## Step 8：执行任务
+## Step 10：执行任务
 
 执行时：
 
@@ -120,7 +140,7 @@ SUPER_SKILL_ROOT/[category]/[subcategory]/SKILL.md
 - 不要为了展示路由过程而浪费输出。
 - 不要把标签文件当成完整知识来源。
 
-## Step 9：选择辅助 Skill
+## Step 11：选择辅助 Skill
 
 如果任务涉及以下任一情况，读取：
 
@@ -146,7 +166,17 @@ karpathy-guidelines
 
 辅助 Skill 只作为执行约束，不替代主 Skill。不要扫描全部全局 Skill。
 
-## Step 10：任务后更新判断
+## Step 12：路由解释
+
+如果用户要求说明“用了哪些 Skill”“为什么选这个 Skill”或调试 Router，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/ROUTING_TRACE.md
+```
+
+输出简短 Routing Trace。默认不要输出完整路由过程。
+
+## Step 13：任务后更新判断
 
 任务结束后，读取：
 
@@ -156,7 +186,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 
 判断是否需要生成 Skill Update Proposal。
 
-## Step 11：fallback 规则
+## Step 14：fallback 规则
 
 如果 `BUSINESS_SKILL_ROOT` 中没有合适分类或 Skill：
 
@@ -169,7 +199,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 7. Proposal 的目标路径应优先指向 `BUSINESS_SKILL_ROOT`。
 8. 不要默认修改 Super Skill Router 框架本身。
 
-## Step 12：外部 Skill 安装
+## Step 15：外部 Skill 安装
 
 只有当用户明确说“确认安装”时，才执行安装。
 

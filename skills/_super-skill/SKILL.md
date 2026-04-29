@@ -18,6 +18,7 @@ description: Route AI Agent tasks to the right Skill with progressive disclosure
 - 支持任务结束后的 Skill 更新建议。
 - 支持缺少本地 Skill 时通过 `skills.sh` 生成外部 Skill 安装建议。
 - 支持根据任务类型自动选择辅助 Skill。
+- 支持轻量项目识别、Skill 使用策略和可选路由解释。
 - 支持同仓库模式和外部依赖模式。
 
 ## 核心变量
@@ -56,21 +57,26 @@ BUSINESS_SKILL_ROOT = skills
 11. 如果本地缺少 Skill，应优先通过 `skills.sh` 生成 Skill Install Proposal。
 12. 不要从未知来源静默下载或安装 Skill。
 13. 辅助 Skill 必须显式登记，不要扫描全部全局 Skill。
+14. 项目识别只读取少量根目录高信号文件。
+15. 默认不输出完整路由过程，除非用户要求。
 
 ## 默认读取流程
 
 1. 读取本文件。
 2. 读取 `SUPER_SKILL_ROOT/_super-skill/CATEGORY_INDEX.md`。
-3. 根据用户任务选择候选大类。
-4. 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
-5. 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
-6. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
-7. 读取候选子类的 `SKILL_TAG.md`。
-8. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
-9. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
-10. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
-11. 执行任务。
-12. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
+3. 读取 `SKILL_POLICY.md`，确认自动读取、安装、更新和辅助 Skill 边界。
+4. 如果任务涉及代码、构建、部署、测试或项目结构，读取 `PROJECT_PROFILE.md` 做轻量项目识别。
+5. 根据用户任务和项目画像选择候选大类。
+6. 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
+7. 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
+8. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
+9. 读取候选子类的 `SKILL_TAG.md`。
+10. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
+11. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
+12. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
+13. 执行任务。
+14. 如用户要求说明路由过程，读取 `ROUTING_TRACE.md` 输出简短摘要。
+15. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
 
 ## 路径优先级
 
@@ -97,6 +103,7 @@ BUSINESS_SKILL_ROOT = skills
 - 如果用户要求说明使用了哪些 Skill，可以给出主 Skill 和辅助 Skill。
 - 如果任务跨领域，必须区分主 Skill 和辅助 Skill。
 - 编码任务默认把 `karpathy-guidelines` 作为辅助 Skill，用于控制实现质量。
+- 如果用户要求解释 Skill 选择，使用 `ROUTING_TRACE.md` 的简短格式。
 - 如果产生可复用经验，末尾生成 Skill Update Proposal。
 - 如果缺少本地 Skill 但 `skills.sh` 有候选，生成 Skill Install Proposal。
 - 默认不要直接修改 Skill 文件。
@@ -106,6 +113,9 @@ BUSINESS_SKILL_ROOT = skills
 ## 继续读取
 
 - 路由细则：读取 `SUPER_SKILL_ROOT/_super-skill/ROUTER.md`。
+- 使用策略：需要安装、更新、辅助 Skill 或低置信度判断时读取 `SUPER_SKILL_ROOT/_super-skill/SKILL_POLICY.md`。
+- 项目画像：代码、构建、部署、测试任务可读取 `SUPER_SKILL_ROOT/_super-skill/PROJECT_PROFILE.md`。
 - 辅助 Skill：需要时读取 `SUPER_SKILL_ROOT/_super-skill/AUXILIARY_SKILLS.md`。
+- 路由解释：用户要求时读取 `SUPER_SKILL_ROOT/_super-skill/ROUTING_TRACE.md`。
 - 外部 Skill 获取：需要时读取 `SUPER_SKILL_ROOT/_super-skill/ACQUISITION_RULES.md`。
 - 更新判断：任务结束后读取 `SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md`。

@@ -1,5 +1,9 @@
 # super-skill-router
 
+`super-skill-router` 是一个给 AI Agent 用的 Skill 路由框架。它不会一次性读取所有技能文件，而是按“先读分类索引、再读标签、最后按需读完整 Skill”的方式自动选择合适能力；写代码时还能自动配合 `karpathy-guidelines`，本地没有合适 Skill 时可去 `skills.sh` 查找候选。适合想让 Codex / AI Agent 更像 Claude Code 一样工作的同学使用。
+
+## 项目定位
+
 `super-skill-router` 是一个可复用的 AI Agent Skill 路由框架。它不是万能知识库，而是让 Agent 先读索引、再读标签、最后只在必要时读取完整 Skill，从而降低 token 消耗并提升 Skill 选择准确性。
 
 ## 目标
@@ -14,8 +18,7 @@
 - 默认不自动覆盖 Skill，除非用户明确确认。
 - 支持在本地缺少合适 Skill 时到 [skills.sh](https://skills.sh/) 查找候选并生成 Skill Install Proposal。
 - 支持根据任务类型自动选择辅助 Skill，例如编码任务自动使用 `karpathy-guidelines`。
-- 支持轻量项目识别、Skill 使用策略和可选路由解释。
-- 支持路由置信度、外部 Skill lockfile 和结构健康检查。
+- 支持轻量项目识别、Skill 使用策略、可选路由解释、路由置信度、外部 Skill lockfile 和结构健康检查。
 
 ## 目录结构
 
@@ -137,3 +140,4 @@ Router 还提供：
 ## 标识
 
 一XL
+

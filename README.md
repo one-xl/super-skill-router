@@ -95,8 +95,11 @@ Router 还提供：
 - `ROUTING_CONFIDENCE.md`：在路由不确定时决定继续、提问或生成 Proposal。
 - `SKILL_LOCK.md`：记录外部 Skill 的来源、安装命令、审计状态和目标路径。
 - `HEALTH_CHECK.md`：按索引检查 Skill 结构，不读取所有完整 Skill。
+- `LOCAL_SKILL_CATALOG.md`：整理本机已安装全局 Skill 的触发场景和使用边界。
 
 更完整的中文使用教程见 [docs/zh-usage.md](docs/zh-usage.md)。
+
+本机 Skill 整理清单见 [docs/local-skill-inventory.md](docs/local-skill-inventory.md)。
 
 ## 外部 Skill 安装
 
@@ -140,4 +143,3 @@ Router 还提供：
 ## 标识
 
 一XL
-

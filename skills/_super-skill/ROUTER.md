@@ -174,7 +174,24 @@ karpathy-guidelines
 
 辅助 Skill 只作为执行约束，不替代主 Skill。不要扫描全部全局 Skill。
 
-## Step 12：路由解释
+## Step 12：选择已安装全局 Skill
+
+如果任务明显命中本机已安装全局 Skill，读取：
+
+```text
+SUPER_SKILL_ROOT/_super-skill/LOCAL_SKILL_CATALOG.md
+```
+
+根据目录选择 0 到 3 个候选全局 Skill。
+
+规则：
+
+- 不要扫描 `~/.codex/skills`。
+- 不要一次性读取所有全局 Skill 的完整 `SKILL.md`。
+- 只读取被选中 Skill 的 `SKILL.md`。
+- 全局 Skill 可以作为主 Skill 或辅助 Skill，但必须保留业务主线。
+
+## Step 13：路由解释
 
 如果用户要求说明“用了哪些 Skill”“为什么选这个 Skill”或调试 Router，读取：
 
@@ -184,7 +201,7 @@ SUPER_SKILL_ROOT/_super-skill/ROUTING_TRACE.md
 
 输出简短 Routing Trace。默认不要输出完整路由过程。
 
-## Step 13：任务后更新判断
+## Step 14：任务后更新判断
 
 任务结束后，读取：
 
@@ -194,7 +211,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 
 判断是否需要生成 Skill Update Proposal。
 
-## Step 14：fallback 规则
+## Step 15：fallback 规则
 
 如果 `BUSINESS_SKILL_ROOT` 中没有合适分类或 Skill：
 
@@ -207,7 +224,7 @@ SUPER_SKILL_ROOT/_super-skill/UPDATE_RULES.md
 7. Proposal 的目标路径应优先指向 `BUSINESS_SKILL_ROOT`。
 8. 不要默认修改 Super Skill Router 框架本身。
 
-## Step 15：外部 Skill 安装
+## Step 16：外部 Skill 安装
 
 只有当用户明确说“确认安装”时，才执行安装。
 

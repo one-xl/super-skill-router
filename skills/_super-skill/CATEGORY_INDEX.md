@@ -30,3 +30,9 @@
 读取条件：用户任务涉及 AI Agent、Prompt 工程、Skill 设计、工作流编排时读取。  
 读取：ai-agent/CATEGORY_TAG.md
 
+## engineering
+
+标签：TDD、测试驱动、Debug、调试、诊断、架构重构、软件工程、敏捷开发、快速原型、交接、Zoom-out、需求规划、PRD、Issue拆解、Grill-me  
+读取条件：用户任务涉及编写测试（TDD）、修Bug调试（诊断）、代码架构重构、原型设计、工程规划设计（PRD/Issue）或交接时读取。  
+读取：engineering/CATEGORY_TAG.md
+

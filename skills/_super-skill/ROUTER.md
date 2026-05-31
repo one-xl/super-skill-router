@@ -15,6 +15,26 @@ SUPER_SKILL_ROOT = skills
 BUSINESS_SKILL_ROOT = skills
 ```
 
+## Step 2a：CodeGraph 智能路由 (优先)
+
+如果当前开发环境能够执行 Node.js 脚本，运行路由命令：
+
+```bash
+node <SUPER_SKILL_ROOT>/../scripts/route.js --query "<用户任务>" --workspace "<当前项目绝对路径>"
+```
+
+该命令会使用 CodeGraph 智能扫描项目代码、路由、配置 and 依赖，自动匹配并返回：
+- **category** / **subcategory**：要加载的 Skill 主分类和子类。
+- **skillFile**：主 `SKILL.md` 路径。
+- **progressiveReferences**：渐进式披露文件列表（只读取这些具体子手册，防止 prompt 膨胀）。
+- **auxiliarySkills**：推荐加载的辅助 Skill。
+
+如果脚本执行成功：
+- 直接读取并加载返回的 `skillFile` 与 `progressiveReferences`。
+- 直接跳转到 **Step 9：读取完整 Skill** 和 **Step 11：选择辅助 Skill**。
+
+如果脚本执行失败、未安装环境，或者输出置信度为 `low`，则回退执行以下 **Step 2：读取总索引**。
+
 ## Step 2：读取总索引
 
 读取：

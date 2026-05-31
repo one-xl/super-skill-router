@@ -48,45 +48,57 @@ BUSINESS_SKILL_ROOT = skills
 
 1. 不要一次性读取全部 skills。
 2. 不要扫描整个 Skill 目录。
-3. 默认只读取入口文件和 `CATEGORY_INDEX.md`。
-4. 先读大类索引。
-5. 再读候选大类标签。
-6. 再读候选子类标签。
-7. 最后才读必要的完整 `SKILL.md`。
-8. 标签文件只用于判断，不承载完整知识。
-9. 具体知识、流程、代码规范写入 `SKILL.md`。
-10. 如果没有合适 Skill，不要硬套，应生成 Skill Update Proposal。
-11. 如果本地缺少 Skill，应优先通过 `skills.sh` 生成 Skill Install Proposal。
-12. 不要从未知来源静默下载或安装 Skill。
-13. 辅助 Skill 必须显式登记，不要扫描全部全局 Skill。
-14. 项目识别只读取少量根目录高信号文件。
-15. 默认不输出完整路由过程，除非用户要求。
-16. 路由低置信度时，不要通过读取大量 Skill 来试错。
-17. 外部 Skill 安装后应记录 Skill Lock。
-18. 健康检查只按索引验证结构，不读取所有完整 Skill。
-19. 本机全局 Skill 只能通过 `LOCAL_SKILL_CATALOG.md` 精简目录选择。
+3. 优先使用 CodeGraph 路由引擎：运行 `node <THIS_SKILL_DIR>/scripts/route.js --query "<user_query>" --workspace "<active_workspace>"` 全自动、智能化分析项目结构与匹配 Skill。
+4. 在脚本执行成功后，实行**渐进式披露**（Progressive Disclosure）：仅加载脚本返回的 `skillFile` 及其指定匹配的 `progressiveReferences` 列表文件，避免 prompt 膨胀与上下文浪费。
+5. 默认只读取入口文件和 `CATEGORY_INDEX.md`（脚本未运行成功时的回退方案）。
+6. 先读大类索引。
+7. 再读候选大类标签。
+8. 再读候选子类标签。
+9. 最后才读必要的完整 `SKILL.md`。
+10. 标签文件只用于判断，不承载完整知识。
+11. 具体知识、流程、代码规范写入 `SKILL.md`。
+12. 如果没有合适 Skill，不要硬套，应生成 Skill Update Proposal。
+13. 如果本地缺少 Skill，应优先通过 `skills.sh` 生成 Skill Install Proposal。
+14. 不要从未知来源静默下载或安装 Skill。
+15. 辅助 Skill 必须显式登记，不要扫描全部全局 Skill。
+16. 项目识别只读取少量根目录高信号文件。
+17. 默认不输出完整路由过程，除非用户要求。
+18. 路由低置信度时，不要通过读取大量 Skill 来试错。
+19. 外部 Skill 安装后应记录 Skill Lock。
+20. 健康检查只按索引验证结构，不读取所有完整 Skill。
+21. 本机全局 Skill 只能通过 `LOCAL_SKILL_CATALOG.md` 精简目录选择。
 
 ## 默认读取流程
 
 1. 读取本文件。
-2. 读取 `SUPER_SKILL_ROOT/_super-skill/CATEGORY_INDEX.md`。
-3. 读取 `SKILL_POLICY.md`，确认自动读取、安装、更新和辅助 Skill 边界。
-4. 如果任务涉及代码、构建、部署、测试或项目结构，读取 `PROJECT_PROFILE.md` 做轻量项目识别。
-5. 根据用户任务和项目画像选择候选大类。
-6. 如果分类或子类选择不确定，读取 `ROUTING_CONFIDENCE.md` 判断是否继续、提问或生成 Proposal。
-7. 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
-8. 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
-9. 读取候选大类的 `SUBCATEGORY_INDEX.md`。
-10. 读取候选子类的 `SKILL_TAG.md`。
-11. 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
-12. 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
-13. 如果任务明显命中已安装全局 Skill，读取 `LOCAL_SKILL_CATALOG.md` 选择候选。
-14. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
-15. 外部 Skill 安装或更新完成后，读取 `SKILL_LOCK.md` 并生成锁定记录建议。
-16. 执行任务。
-17. 如用户要求说明路由过程，读取 `ROUTING_TRACE.md` 输出简短摘要。
-18. 如用户要求检查 Skill 结构，读取 `HEALTH_CHECK.md`。
-19. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
+2. **优先智能路由**：使用 Node.js 运行路由脚本：
+   ```bash
+   node <SUPER_SKILL_ROOT>/../scripts/route.js --query "<用户任务>" --workspace "<当前工作区绝对路径>"
+   ```
+3. **根据脚本 JSON 结果加载**：如果上述路由脚本执行成功且置信度为 `high` 或 `medium`：
+   - 直接读取并加载脚本返回的 `skillFile` 主文件。
+   - 实行渐进式披露：仅加载 `progressiveReferences` 数组里列出的子类参考文件（如 `gsap.md`, `taste-skill.md` 等）。
+   - 加载指定的 `auxiliarySkills` 辅助 Skill。
+   - 直接跳转到**第 16 步（执行任务）**。
+4. **手动回退匹配（如果脚本未执行或置信度为 `low`）**：
+   - 读取 `SUPER_SKILL_ROOT/_super-skill/CATEGORY_INDEX.md`。
+   - 读取 `SKILL_POLICY.md`，确认自动读取、安装、更新和辅助 Skill 边界。
+   - 如果任务涉及代码、构建、部署、测试或项目结构，读取 `PROJECT_PROFILE.md` 做轻量项目识别。
+   - 根据用户任务和项目画像选择候选大类。
+   - 如果分类或子类选择不确定，读取 `ROUTING_CONFIDENCE.md` 判断是否继续、提问或生成 Proposal。
+   - 优先从 `BUSINESS_SKILL_ROOT` 读取候选大类的 `CATEGORY_TAG.md`。
+   - 如果 `BUSINESS_SKILL_ROOT` 没有该大类，再从 `SUPER_SKILL_ROOT` 示例 Skill 中 fallback。
+   - 读取候选大类的 `SUBCATEGORY_INDEX.md`。
+   - 读取候选子类的 `SKILL_TAG.md`。
+   - 只有当 `SKILL_TAG.md` 明确要求时，才读取完整 `SKILL.md`。
+   - 如果任务涉及编码、审查、重构或测试，读取 `AUXILIARY_SKILLS.md` 并选择必要辅助 Skill。
+5. 如果任务明显命中已安装全局 Skill，读取 `LOCAL_SKILL_CATALOG.md` 选择候选。
+6. 如果没有合适 Skill，读取 `ACQUISITION_RULES.md`，通过 `skills.sh` 判断是否需要生成 Skill Install Proposal。
+7. 外部 Skill 安装或更新完成后，读取 `SKILL_LOCK.md` 并生成锁定记录建议。
+8. **执行任务**。
+9. 如用户要求说明路由过程，读取 `ROUTING_TRACE.md` 输出简短摘要。
+10. 如用户要求检查 Skill 结构，读取 `HEALTH_CHECK.md`。
+11. 读取 `UPDATE_RULES.md`，判断是否需要生成 Skill Update Proposal。
 
 ## 路径优先级
 

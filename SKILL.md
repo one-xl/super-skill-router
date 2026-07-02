@@ -1,50 +1,37 @@
 ---
 name: super-skill-router
-description: Global entrypoint for Super Skill Router. Use for non-trivial AI Agent tasks that may benefit from selecting, combining, acquiring, or maintaining Skills through progressive routing instead of reading all Skill files at once.
+description: Global entrypoint for Super Skill Router. MUST BE TRIGGERED for ANY coding, development, bug fixing, refactoring, code review, UI/UX design, or architecture task.
 ---
 
-# Super Skill Router Global Entrypoint
+# Super Skill Router 全局入口
 
-This file makes the repository installable as a Codex global skill.
+当用户请求编程、写代码、开发、修bug、前端、后端或任何复杂任务时，必须触发此路由以选择合适的专业 Skill。
 
-## Resolve Roots
+此文件将本仓库作为 Codex/Antigravity 全局 Skill 进行安装。
 
-Set:
+## 核心变量与路径解析
 
-```text
-THIS_SKILL_DIR = directory containing this SKILL.md
-SUPER_SKILL_ROOT = THIS_SKILL_DIR/skills
+- **THIS_SKILL_DIR**：包含当前 `SKILL.md` 的目录。
+- **SUPER_SKILL_ROOT**：指向 `THIS_SKILL_DIR`。
+- **BUSINESS_SKILL_ROOT**：
+  1. 如果当前工作区中包含 `internal-skills/` 目录，则优先使用该目录作为业务技能库。
+  2. 否则，使用 `THIS_SKILL_DIR/internal-skills` 作为内置专业技能库。
+
+## 自动路由执行方式
+
+如果 Node.js 环境可用，智能体通过运行以下命令获取路由推荐：
+
+```bash
+node <SUPER_SKILL_ROOT>/scripts/route.js --query "<用户任务>" --workspace "<项目绝对路径>"
 ```
 
-Set `BUSINESS_SKILL_ROOT` with this priority:
+该命令输出包含 `primary`、`auxiliary`、`confidence`、`filesToRead` 的标准 JSON 结果。
 
-1. If the current workspace has a `skills/` directory, use that.
-2. Otherwise use `THIS_SKILL_DIR/skills` for the built-in example Skills.
+## 路由维护策略文档
 
-## Continue
+在决策或维护路由时，请按需调阅以下配置文件：
 
-Read:
-
-```text
-SUPER_SKILL_ROOT/_super-skill/SKILL.md
-SUPER_SKILL_ROOT/_super-skill/ROUTER.md
-```
-
-Then follow the router rules:
-
-- Read `CATEGORY_INDEX.md` first.
-- Read `SKILL_POLICY.md` before installing, updating, or using auxiliary Skills.
-- Read `PROJECT_PROFILE.md` for code, build, deployment, or repository-structure tasks.
-- Read `ROUTING_CONFIDENCE.md` when category or subcategory choice is uncertain.
-- Read only candidate category tags.
-- Read only candidate subcategory tags.
-- Read auxiliary Skill rules when the task needs coding, review, refactoring, testing, or implementation discipline.
-- Read full `SKILL.md` only when the tag says it is needed.
-- Use `ROUTING_TRACE.md` only when the user asks why a Skill was selected or asks for routing details.
-- Use `SKILL_LOCK.md` rules after confirmed external Skill installation or update.
-- Use `HEALTH_CHECK.md` only when the user asks to validate, audit, or repair Skill structure.
-- Use `skills.sh` as the default external Skill discovery and installation source.
-- Generate Skill Install Proposal when a suitable external Skill exists but is not installed locally.
-- Generate Skill Update Proposal when no suitable Skill exists or reusable experience appears.
-- Do not update Skill files unless the user explicitly confirms.
-- Do not download or install external Skills unless the user explicitly confirms.
+- **大类索引**：[router/CATEGORY_INDEX.md](file:///router/CATEGORY_INDEX.md) （定义分类与标签）
+- **梯队排行榜**：[router/SKILL_RANKINGS.md](file:///router/SKILL_RANKINGS.md) （规定技能的优先级与替代规则）
+- **安全与控制边界**：[router/SKILL_POLICY.md](file:///router/SKILL_POLICY.md) （关于确认、惰性加载与辅助 Skill 的规定）
+- **路由细节**：[router/ROUTER.md](file:///router/ROUTER.md) （机器与 Agent 具体的路由步骤说明）

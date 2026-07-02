@@ -1,0 +1,7 @@
+interface:
+  display_name: "Scientific Research Skill"
+  short_description: "Selectable research paper workflow"
+  default_prompt: "Use $scientific-research-skill to choose AI-conference, Nature-style, or hybrid mode for a research manuscript workflow."
+
+policy:
+  allow_implicit_invocation: true

@@ -16,5 +16,7 @@ build/
 coverage/
 .cache/
 
-*.log
+.codegraph/
+.skillspector-cache.json
+*.pid
 

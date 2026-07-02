@@ -1,390 +1,47 @@
-# Super Skill Router 中文使用教程
+# Super Skill Router 中文使用指南
 
-本文说明如何在 Codex 或其他 AI Agent 中全局使用 `super-skill-router`，让 Agent 像 Claude Code 一样拥有“全局规则 + 项目 Skill + 按需读取”的工作方式。
+本文档阐述如何在 AI Agent 开发空间和多端桌面端（如 Codex / Antigravity）中配置和使用本路由框架。
 
-## 1. 核心概念
+## 核心配置模式
 
-`super-skill-router` 不是万能知识库，而是 Skill 路由框架。它的职责是：
+### 模式 1：同仓库模式 (内置模式)
 
-- 先读分类索引，判断任务属于哪些大类。
-- 再读候选分类标签，判断是否相关。
-- 再读候选子类标签，判断是否需要完整 Skill。
-- 最后只读取必要的 `SKILL.md`。
-- 如果本地没有合适 Skill，生成更新或安装建议。
-
-两个关键变量：
+如果将 Router 与业务技能放在同一个 Git 仓库内，配置如下：
 
 ```text
-SUPER_SKILL_ROOT = Super Skill Router 所在的 skills 目录
-BUSINESS_SKILL_ROOT = 当前项目实际业务 Skill 所在的 skills 目录
+SUPER_SKILL_ROOT = . (项目根目录)
+BUSINESS_SKILL_ROOT = internal-skills (专业业务技能目录)
 ```
 
-## 2. 同仓库模式
+- 此时 Agent 优先从根目录唯一的 `SKILL.md` 入手读取。
 
-适合把 Router 和业务 Skill 放在同一个项目里。
+### 模式 2：外部依赖模式 (子模块或 vendor 引入)
+
+如果把本框架复制到其他项目的 `vendor/super-skill-router/` 下，配置如下：
 
 ```text
-project/
-└── skills/
-    ├── _super-skill/
-    ├── frontend/
-    ├── backend/
-    └── ...
+SUPER_SKILL_ROOT = vendor/super-skill-router
+BUSINESS_SKILL_ROOT = internal-skills
 ```
 
-配置含义：
+- Agent 应从 `vendor/super-skill-router/SKILL.md` 入手读取。
 
-```text
-SUPER_SKILL_ROOT = skills
-BUSINESS_SKILL_ROOT = skills
-入口文件 = skills/_super-skill/SKILL.md
+## 典型匹配用例说明
+
+使用路由脚本能够对典型任务给出极高置信度的判断：
+- **前端页面 Bug 修复**：直接将任务关联至 `web-frontend` 并推荐 `diagnose` 辅助规则。
+- **论文 Rebuttal 写作**：匹配 `scientific-research-skill` 并动态提取 `grammar-check` 指令进行语法润色。
+- **后端安全审计**：匹配 `security-and-hardening` 安全加固技能。
+
+## 结构健康体检 (doctor.js)
+
+框架提供健康自诊断脚本，该脚本集成在部署审计流程中：
+
+```bash
+node scripts/doctor.js
 ```
 
-使用方式：
-
-1. 让 Agent 从 `skills/_super-skill/SKILL.md` 开始。
-2. Agent 读取 `CATEGORY_INDEX.md`。
-3. Agent 只读取候选分类和候选子类的标签。
-4. 命中条件后，再读取完整 Skill。
-
-## 3. 外部依赖模式
-
-适合把 Router 当成通用依赖，业务 Skill 放在当前项目里。
-
-```text
-project/
-├── skills/
-│   ├── frontend/
-│   ├── backend/
-│   └── ...
-└── vendor/
-    └── super-skill-router/
-        └── skills/
-            └── _super-skill/
-```
-
-配置含义：
-
-```text
-SUPER_SKILL_ROOT = vendor/super-skill-router/skills
-BUSINESS_SKILL_ROOT = skills
-入口文件 = vendor/super-skill-router/skills/_super-skill/SKILL.md
-```
-
-推荐流程：
-
-1. 当前项目自己的 `skills/` 放业务 Skill。
-2. `vendor/super-skill-router/` 放 Router 框架。
-3. Router 优先读取 `BUSINESS_SKILL_ROOT`。
-4. 如果业务 Skill 缺失，再 fallback 到 Router 内置示例。
-5. 如果示例也不够，生成 `Skill Update Proposal` 或 `Skill Install Proposal`。
-
-## 4. Codex 全局安装方式
-
-Codex 的全局 Skill 目录通常是：
-
-```text
-~/.codex/skills
-```
-
-推荐结构：
-
-```text
-~/.codex/
-├── AGENTS.md
-├── skills/
-│   └── super-skill-router/
-│       └── SKILL.md
-└── vendor/
-    └── super-skill-router/
-        ├── README.md
-        ├── SKILL.md
-        └── skills/
-            └── _super-skill/
-```
-
-这样 Codex 只会发现一个全局入口：
-
-```text
-~/.codex/skills/super-skill-router/SKILL.md
-```
-
-完整 Router 项目则放在：
-
-```text
-~/.codex/vendor/super-skill-router
-```
-
-## 5. 如何模拟 Claude Code 的效果
-
-建议组合：
-
-- 全局规则：`~/.codex/AGENTS.md`
-- 全局 Router：`~/.codex/skills/super-skill-router/SKILL.md`
-- Router 框架：`~/.codex/vendor/super-skill-router`
-- 项目知识：当前项目的 `skills/`
-
-项目结构示例：
-
-```text
-my-project/
-├── AGENTS.md
-├── skills/
-│   ├── frontend/
-│   ├── backend/
-│   └── deployment/
-└── src/
-```
-
-推荐在全局 `AGENTS.md` 中加入类似规则：
-
-```md
-For non-trivial tasks, first consider using the global `super-skill-router` skill.
-Read the category index, then candidate tags, then full Skills only when needed.
-Do not scan all Skills or read every Skill file at once.
-```
-
-这样 Agent 会先用全局 Router 做任务分流，再读取项目自己的业务 Skill。
-
-### 自动使用编码辅助 Skill
-
-Router 支持按任务类型自动选择辅助 Skill。
-
-默认规则：
-
-- 写代码、改代码、修 bug、重构、审查、加测试时，自动选择 `karpathy-guidelines`。
-- `karpathy-guidelines` 只做辅助约束，不替代主 Skill。
-- 主 Skill 仍由任务领域决定，例如前端任务主 Skill 是 `frontend/web-frontend`，后端任务主 Skill 是 `backend/api-backend`。
-- 不扫描全部全局 Skill，只读取 `AUXILIARY_SKILLS.md` 中显式登记的辅助 Skill。
-
-示例：
-
-```text
-用户任务：帮我修复这个 React 表单 bug。
-主 Skill：frontend/web-frontend
-辅助 Skill：karpathy-guidelines
-```
-
-执行效果：
-
-- 先按前端 Skill 理解 UI 和代码结构。
-- 再用 `karpathy-guidelines` 约束实现：最小修改、避免过度设计、明确验证。
-- 输出时默认不展示内部路由细节，除非用户询问使用了哪些 Skill。
-
-### Skill Policy
-
-`SKILL_POLICY.md` 定义 Router 的安全边界：
-
-- 哪些 Skill 可以自动读取。
-- 哪些辅助 Skill 可以自动使用。
-- 什么时候必须等待用户确认。
-- 外部 Skill 是否允许安装。
-- 低置信度路由时如何处理。
-
-默认策略是：可以自动读取标签和必要 Skill，但安装、覆盖、更新都必须确认。
-
-### Project Profile
-
-`PROJECT_PROFILE.md` 用于轻量识别项目类型。
-
-它只允许读取根目录少量高信号文件，例如：
-
-- `package.json`
-- `tsconfig.json`
-- `Dockerfile`
-- `pyproject.toml`
-- `*.csproj`
-- `README.md`
-- `AGENTS.md`
-
-它不会递归扫描源码目录。识别结果只用于提高分类选择准确性。
-
-### Routing Trace
-
-默认不输出完整路由过程。
-
-当你问“你用了哪些 Skill”或“为什么这么选”时，Router 可以输出：
-
-```text
-Routing Trace
-- 主 Skill: frontend/web-frontend
-- 辅助 Skill: karpathy-guidelines
-- 外部 Skill: none
-- 置信度: high
-- 原因: 任务涉及 React 表单 bug，前端 Skill 处理领域知识，karpathy-guidelines 约束实现方式。
-```
-
-### Routing Confidence
-
-`ROUTING_CONFIDENCE.md` 用于判断路由置信度。
-
-置信度分为：
-
-- `high`：分类和子类都明确，直接执行。
-- `medium`：分类明确但有少量不确定，按最小安全组合执行。
-- `low`：分类或子类不清晰，优先问一个最小问题。
-
-关键原则：
-
-- 不通过读取大量 Skill 来提高置信度。
-- 低置信度时不要静默安装外部 Skill。
-- 如果缺口可复用，生成 Skill Update Proposal 或 Skill Install Proposal。
-
-### Skill Lock
-
-`SKILL_LOCK.md` 用于记录外部 Skill 的来源和安装信息。
-
-当用户确认安装外部 Skill 后，Router 会建议在业务 Skill 根目录写入：
-
-```text
-BUSINESS_SKILL_ROOT/SKILL_LOCK.md
-```
-
-记录内容包括：
-
-- Skill 名称
-- 分类和子类
-- 来源 URL
-- 安装命令
-- 安装目标
-- 安装日期
-- 审计状态
-
-Lockfile 不包含密钥、token、私有绝对路径或机器特定凭据。
-
-### Skill Health Check
-
-`HEALTH_CHECK.md` 用于检查 Skill 结构。
-
-它只在你明确要求时运行，例如：
-
-```text
-使用 super-skill-router 检查当前 skills 结构是否健康。
-```
-
-检查范围：
-
-- `CATEGORY_INDEX.md` 引用的分类是否存在。
-- 分类是否有 `CATEGORY_TAG.md` 和 `SUBCATEGORY_INDEX.md`。
-- 子类是否有 `SKILL_TAG.md`。
-- `SKILL_TAG.md` 是否有明确读取完整 Skill 的条件。
-- 引用的 `SKILL.md` 是否存在。
-- `SKILL_LOCK.md` 中记录的外部 Skill 是否仍存在。
-
-它不会默认读取所有完整 `SKILL.md`，也不会递归扫描整个目录。
-
-## 6. 缺少 Skill 时如何处理
-
-默认不自动下载或覆盖 Skill。
-
-当本地缺少合适 Skill 时：
-
-1. Router 先检查 `BUSINESS_SKILL_ROOT`。
-2. 再检查 `SUPER_SKILL_ROOT` 示例 Skill。
-3. 如果仍不够，读取 `ACQUISITION_RULES.md`。
-4. 优先到 `https://skills.sh/` 搜索候选 Skill。
-5. 可选读取 `SKILL_REGISTRY.md` 中缓存的可信来源。
-6. 生成 `Skill Install Proposal`。
-7. 只有用户明确说“确认安装”时，才下载、复制或更新索引。
-
-这样可以避免 Agent 静默安装未知仓库内容。
-
-### skills.sh 安装流程
-
-Router 使用 `skills.sh` 时遵循以下流程：
-
-1. 根据任务生成搜索关键词。
-2. 查询 `https://skills.sh/api/v1/skills/search?q=[query]&limit=5`。
-3. 读取候选 Skill 详情和审计信息。
-4. 排除明显重复、低相关或高风险候选。
-5. 生成包含来源、安装命令和目标路径的 `Skill Install Proposal`。
-6. 用户确认后运行安装命令。
-
-常用安装命令：
-
-```text
-npx skills add <skill-name-or-source>
-```
-
-如果 `skills.sh` 提供 `installUrl`：
-
-```text
-npx skills add <installUrl>
-```
-
-默认建议关闭安装遥测。
-
-Windows PowerShell：
-
-```powershell
-$env:DISABLE_TELEMETRY='1'; npx skills add <skill-name-or-source>
-```
-
-macOS / Linux：
-
-```sh
-DISABLE_TELEMETRY=1 npx skills add <skill-name-or-source>
-```
-
-## 7. 添加业务 Skill
-
-新增子类 Skill 时，推荐结构：
-
-```text
-skills/
-└── backend/
-    ├── CATEGORY_TAG.md
-    ├── SUBCATEGORY_INDEX.md
-    └── database-migration/
-        ├── SKILL_TAG.md
-        └── SKILL.md
-```
-
-操作步骤：
-
-1. 在对应大类下新增子类目录。
-2. 写 `SKILL_TAG.md`，只放标签、适用场景和读取完整 Skill 的条件。
-3. 写 `SKILL.md`，放完整流程和执行规则。
-4. 更新 `SUBCATEGORY_INDEX.md`。
-5. 如果是新大类，再更新 `_super-skill/CATEGORY_INDEX.md`。
-
-## 8. 常用触发语
-
-显式使用 Router：
-
-```text
-使用 super-skill-router 处理这个任务：...
-```
-
-让 Router 检查是否缺少 Skill：
-
-```text
-使用 super-skill-router 判断这个任务是否需要新增或安装 Skill：...
-```
-
-让 Router 从 skills.sh 查找外部 Skill：
-
-```text
-如果本地没有合适 Skill，请到 skills.sh 查找候选，并给我 Skill Install Proposal。
-```
-
-确认安装外部 Skill：
-
-```text
-确认安装上面 proposal 里的 Skill。
-```
-
-确认更新本地 Skill：
-
-```text
-确认更新上面 proposal 里的 Skill 文件。
-```
-
-## 9. 维护原则
-
-- Router 只做路由、组合、维护建议。
-- 标签文件只做判断，不承载完整知识。
-- 完整流程写在具体子类的 `SKILL.md`。
-- 默认不扫描全部 Skill。
-- 默认不一次性读取全部 Skill。
-- 默认不静默下载外部 Skill。
+体检脚本会执行以下三类强阻断拦截断言，一旦检测失败将阻断同步：
+1. **Frontmatter 格式校验**：保证根目录全局入口格式规范，无结束符粘连。
+2. **废弃指令校验**：禁止引入过时的 `../scripts/` 相对路径脚本调用。
+3. **中文乱码校验 (Mojibake 防御)**：统计关键文件中的 Mojibake 乱码特征汉字，出现频次大于 0 时阻断，确保文本内容字面可读性。

@@ -1,0 +1,187 @@
+version: "2.0"
+
+selectors:
+  choose_mode:
+    system: "You are a scientific research workflow router."
+    user: |
+      Choose one mode: ai-conference, nature-style, or hybrid.
+
+      Consider venue, task type, need for experiments, need for Nature-style writing/citation/figures/data/reviewer-response, and available evidence.
+
+      User request:
+      {request}
+
+      Return:
+      Mode:
+      Selected modules:
+      Reason:
+      Evidence needed:
+      Blocking questions:
+
+  claim_evidence_map:
+    system: "You are a strict claim-evidence auditor."
+    user: |
+      Map every major claim to evidence.
+
+      Return a table with Claim, Evidence source, Status, Needed action.
+
+      Manuscript or plan:
+      {text}
+
+      Evidence package:
+      {evidence}
+
+ai_conference_prompts:
+  topic_init:
+    system: "You are a rigorous research planner."
+    user: |
+      Create a SMART research goal in markdown.
+
+      Topic: {topic}
+      Domains: {domains}
+      Project: {project_name}
+      Quality threshold: {quality_threshold}
+
+      Required sections: Topic, Scope, SMART Goal, Constraints, Success Criteria, Generated.
+
+  experiment_design:
+    system: "You are a principal investigator designing ML experiments."
+    user: |
+      Design an experiment plan as YAML.
+
+      Required keys: objectives,datasets,baselines,proposed_methods,ablations,metrics,risks,compute_budget.
+
+      Hypotheses:
+      {hypotheses}
+
+  code_generation:
+    max_tokens: 8192
+    system: "You are a computational scientist who writes real, runnable experiments with real mathematical operations. Never fake results."
+    user: |
+      Generate a Python experiment project.
+
+      Requirements:
+      - real algorithms and real objective/loss/metric calculations
+      - deterministic seeds
+      - convergence criteria
+      - pilot timing and `TIME_ESTIMATE: Xs`
+      - structured `results.json`
+      - no subprocess, os.system, eval, exec, shutil, socket
+      - NumPy 2.x compatible code
+
+      Topic: {topic}
+      Primary metric: {metric}
+      Experiment plan:
+      {exp_plan}
+
+  result_analysis:
+    system: "You are a quantitative ML analyst. Always cite exact numbers from provided data."
+    user: |
+      Analyze run metrics and produce a report with exact values.
+
+      Required sections: Metrics Summary, Comparative Findings, Statistical Checks, Limitations, Conclusion.
+
+      Data:
+      {data_context}
+
+  research_decision:
+    system: "You are a research program lead making go/no-go decisions."
+    user: |
+      Make a PROCEED, REFINE, or PIVOT decision.
+
+      Output: Decision, Justification, Evidence, Next Actions.
+
+      Analysis:
+      {analysis}
+
+nature_style_prompts:
+  one_sentence_argument:
+    system: "You are a Nature-style manuscript architect."
+    user: |
+      Build the one-sentence argument:
+      In [system/problem], we show [advance] using [approach], supported by [evidence], with [boundary].
+
+      Notes:
+      {notes}
+
+  section_architecture:
+    system: "You are a high-impact journal writing strategist."
+    user: |
+      Choose the section architecture and paragraph jobs.
+
+      Section: {section}
+      Paper type: {paper_type}
+      Core claim: {core_claim}
+      Evidence: {evidence}
+      Boundary: {boundary}
+
+      Return outline, paragraph jobs, claim-evidence map, and missing inputs.
+
+  figure_contract:
+    system: "You are a publication figure editor."
+    user: |
+      Create a figure contract before plotting.
+
+      Backend selected: {backend}
+      Core manuscript claim: {claim}
+      Evidence available: {evidence}
+
+      Return core conclusion, panel map, archetype, export contract, and review risks.
+
+  citation_support:
+    system: "You are a conservative citation support auditor."
+    user: |
+      Segment the text into citable claims and propose support grades.
+
+      Scope: {scope}
+      Text:
+      {text}
+
+      Return segment ID, source segment, search claim, candidate citation, support grade, insertion advice, and risk.
+
+  reviewer_response:
+    system: "You are a senior author drafting a traceable point-by-point response."
+    user: |
+      Build a response package.
+
+      Reviewer/editor comments:
+      {comments}
+
+      Manuscript changes or evidence:
+      {evidence}
+
+      Return response strategy, tracker table, draft response letter, manuscript change checklist, and missing inputs.
+
+hybrid_prompts:
+  nature_over_ai_draft:
+    system: "You are a hybrid AI-conference and Nature-style manuscript editor."
+    user: |
+      Improve the manuscript using Nature-style argument flow without weakening AI-conference reproducibility or evidence detail.
+
+      Conference constraints:
+      {conference_constraints}
+
+      Evidence:
+      {evidence}
+
+      Draft:
+      {draft}
+
+      Return revised prose plus notes on which Nature-style moves were applied and which AI-conference details were preserved.
+
+  final_quality_gate:
+    json_mode: true
+    system: "You are a final quality gate evaluator for hybrid scientific manuscripts."
+    user: |
+      Evaluate the paper.
+
+      Check evidence truthfulness, venue compliance, section architecture, figure contract, citation support, data availability when needed, reviewer risk, and reproducibility.
+
+      Return JSON:
+      {score_1_to_10:number, verdict:string, strengths:[...], weaknesses:[...], required_actions:[...], recommended_mode_actions:[...]}
+
+      Paper:
+      {paper}
+
+      Evidence:
+      {evidence}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Donet Handjob"
+  short_description: "Make .NET desktop apps look like Visual Studio designer coursework."
+  default_prompt: "Convert this .NET desktop project into a teaching-friendly Visual Studio drag-and-drop style course project while preserving business logic."

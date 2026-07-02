@@ -1,0 +1,6 @@
+interface:
+  display_name: "MiMo JianYing Video Workflow"
+  short_description: "MiMo理解、剪映剪辑与成片复核迭代"
+  default_prompt: "Use $mimo-jianying-video-workflow to turn my product demo requirements into an iterated JianYing draft and final MP4."
+policy:
+  allow_implicit_invocation: true

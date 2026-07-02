@@ -1,0 +1,2845 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "id": "agent-memory",
+      "name": "Agent Memory",
+      "category": "ai-agent",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "memory",
+        "claude-mem",
+        "session",
+        "context",
+        "persistence",
+        "上下文",
+        "持久化"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/ai-agent/agent-memory/INSTRUCTION.md"
+    },
+    {
+      "id": "code-indexing",
+      "name": "Code Indexing",
+      "category": "ai-agent",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "aliases": [
+        "codegraph"
+      ],
+      "triggers": [
+        "indexing",
+        "codegraph",
+        "代码分析",
+        "模块关系",
+        "探索陌生项目",
+        "调用链路"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/ai-agent/code-indexing/INSTRUCTION.md"
+    },
+    {
+      "id": "headroom",
+      "name": "Headroom Log Compressor",
+      "category": "ai-agent",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "headroom",
+        "compression",
+        "logs",
+        "output",
+        "会话压缩",
+        "日志瘦身",
+        "超长报错",
+        "测试报错堆栈"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/ai-agent/headroom/INSTRUCTION.md"
+    },
+    {
+      "id": "skill-design",
+      "name": "Skill Design",
+      "category": "ai-agent",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "prompt",
+        "rule",
+        "routing",
+        "设计技能",
+        "维护技能",
+        "新建技能"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/ai-agent/skill-design/INSTRUCTION.md"
+    },
+    {
+      "id": "find-skill",
+      "name": "Find Skill",
+      "category": "ai-agent",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "find",
+        "discover",
+        "install",
+        "有没有某种",
+        "如何安装",
+        "找一个能做"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/ai-agent/find-skill/INSTRUCTION.md"
+    },
+    {
+      "id": "api-backend",
+      "name": "API Backend",
+      "category": "backend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "aliases": [
+        "backend-api",
+        "server-api"
+      ],
+      "triggers": [
+        "api",
+        "token",
+        "session",
+        "crud",
+        "database",
+        "express",
+        "nest"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/backend/api-backend/INSTRUCTION.md"
+    },
+    {
+      "id": "nginx",
+      "name": "Nginx Deployment",
+      "category": "deployment",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "nginx",
+        "reverse proxy",
+        "ssl",
+        "https",
+        "domain",
+        "server block",
+        "负载均衡",
+        "反向代理"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/deployment/nginx/INSTRUCTION.md"
+    },
+    {
+      "id": "writing",
+      "name": "Writing & Document",
+      "category": "document",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "write",
+        "draft",
+        "improve"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/document/writing/INSTRUCTION.md"
+    },
+    {
+      "id": "document-skills",
+      "name": "Document Skills",
+      "category": "document",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "doc",
+        "pdf",
+        "word",
+        "xlsx",
+        "excel",
+        "ppt",
+        "幻灯片"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/document/document-skills/INSTRUCTION.md"
+    },
+    {
+      "id": "diagnose",
+      "name": "Diagnostics & Error Recovery",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "aliases": [
+        "debugging-and-error-recovery"
+      ],
+      "triggers": [
+        "debug",
+        "diagnose",
+        "bug",
+        "crash",
+        "error",
+        "leak",
+        "stack trace"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/diagnose/INSTRUCTION.md"
+    },
+    {
+      "id": "improve-codebase-architecture",
+      "name": "Improve Codebase Architecture",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "architecture",
+        "refactor",
+        "design pattern",
+        "structure",
+        "设计模式",
+        "消除冗余",
+        "模块划分"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/improve-codebase-architecture/INSTRUCTION.md"
+    },
+    {
+      "id": "tdd",
+      "name": "Test Driven Development",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "aliases": [
+        "test-driven-development"
+      ],
+      "triggers": [
+        "tdd",
+        "test",
+        "unit test",
+        "spec",
+        "jest",
+        "vitest",
+        "测试驱动",
+        "编写测试",
+        "红绿重构",
+        "red-green",
+        "unit-test-first",
+        "先写测试"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/tdd/INSTRUCTION.md"
+    },
+    {
+      "id": "zoom-out",
+      "name": "Zoom Out Overview",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "zoom",
+        "overview",
+        "macro",
+        "dependencies",
+        "高空审视",
+        "全局依赖",
+        "业务全貌"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/zoom-out/INSTRUCTION.md"
+    },
+    {
+      "id": "grill-me",
+      "name": "Grill Me Plan Review",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "aliases": [
+        "interview-me"
+      ],
+      "triggers": [
+        "grill",
+        "review",
+        "challenge",
+        "plan review",
+        "交互式提问",
+        "方案评审"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/grill-me/INSTRUCTION.md"
+    },
+    {
+      "id": "to-prd",
+      "name": "Plan to PRD",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "prd",
+        "requirement",
+        "product requirement",
+        "需求文档",
+        "产品需求",
+        "编写 prd"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/to-prd/INSTRUCTION.md"
+    },
+    {
+      "id": "to-issues",
+      "name": "Plan to GitHub Issues",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "issue",
+        "ticket",
+        "split",
+        "slice",
+        "task breakdown",
+        "任务拆解",
+        "github issues"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/to-issues/INSTRUCTION.md"
+    },
+    {
+      "id": "handoff",
+      "name": "Handoff Session Compaction",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "handoff",
+        "session",
+        "compaction",
+        "limits",
+        "进度接力",
+        "压缩会话"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/collaboration/handoff/INSTRUCTION.md"
+    },
+    {
+      "id": "prototype",
+      "name": "Throwaway Prototyping",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "prototype",
+        "experiment",
+        "poc",
+        "throwaway",
+        "概念验证",
+        "极简 cli"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/prototyping/prototype/INSTRUCTION.md"
+    },
+    {
+      "id": "karpathy-guidelines",
+      "name": "Karpathy Coding Guidelines",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "karpathy",
+        "rules",
+        "guidelines",
+        "quality",
+        "设计实现",
+        "工程判断"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/karpathy-guidelines/INSTRUCTION.md"
+    },
+    {
+      "id": "agent-skills",
+      "name": "Addy Osmani Agent Skills",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "addy",
+        "osmani",
+        "agent-skills",
+        "best practices",
+        "软件工程技能"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/INSTRUCTION.md"
+    },
+    {
+      "id": "pm-skills",
+      "name": "Product Management Skills",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "pm-skills",
+        "product management",
+        "huryn",
+        "产品经理技能"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/INSTRUCTION.md"
+    },
+    {
+      "id": "web-frontend",
+      "name": "Fused Web Frontend",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "aliases": [
+        "frontend-design",
+        "ui-ux-pro-max"
+      ],
+      "triggers": [
+        "css",
+        "html",
+        "style",
+        "page",
+        "button",
+        "animation",
+        "react",
+        "vue",
+        "layout"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/web-frontend/INSTRUCTION.md"
+    },
+    {
+      "id": "taste-skill",
+      "name": "Taste Premium Frontend Design",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "taste",
+        "premium",
+        "aesthetic",
+        "anti-slop",
+        "视觉细节"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/taste-skill/INSTRUCTION.md"
+    },
+    {
+      "id": "impeccable",
+      "name": "Impeccable Frontend Redesign",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "impeccable",
+        "redesign",
+        "polish",
+        "distill",
+        "audit",
+        "视觉层级",
+        "设计系统"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/impeccable/INSTRUCTION.md"
+    },
+    {
+      "id": "browser-automation",
+      "name": "Browser Automation with DevTools",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "browser-automation",
+        "devtools",
+        "puppeteer",
+        "screenshot",
+        "自动化测试",
+        "网络追踪"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/browser-automation/INSTRUCTION.md"
+    },
+    {
+      "id": "anime",
+      "name": "Anime.js Animation Engine",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "anime",
+        "animejs",
+        "micro-animation",
+        "svg morphing",
+        "动效合成"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/anime/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes",
+      "name": "HyperFrames Video Engine",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes",
+        "remotion",
+        "video render",
+        "video workflow",
+        "视频合成",
+        "渲染引擎"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/INSTRUCTION.md"
+    },
+    {
+      "id": "jianying-editor-skill",
+      "name": "JianYing JyWrapper JyAPI",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "jianying",
+        "jywrapper",
+        "jyapi",
+        "自动化剪辑"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/jianying-editor-skill/INSTRUCTION.md"
+    },
+    {
+      "id": "mimo-jianying-video-workflow",
+      "name": "MiMo JianYing Video Workflow",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "mimo",
+        "demo video",
+        "critique",
+        "录屏剪辑",
+        "产品演示视频"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/mimo-jianying-video-workflow/INSTRUCTION.md"
+    },
+    {
+      "id": "ai-paper-pipeline",
+      "name": "AI Paper Experiment Pipeline",
+      "category": "paper",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "paper",
+        "pipeline",
+        "literature search",
+        "latex",
+        "experiment",
+        "学术论文",
+        "实验分析"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/paper/ai-paper-pipeline/INSTRUCTION.md"
+    },
+    {
+      "id": "scientific-research-skill",
+      "name": "Scientific Research Workflow",
+      "category": "paper",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "scientific",
+        "nature-style",
+        "manuscript",
+        "citation",
+        "rebuttal",
+        "科研写作"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/paper/scientific-research-skill/INSTRUCTION.md"
+    },
+    {
+      "id": "donet-handjob",
+      "name": ".NET Desktop Prototyper",
+      "category": "specialized",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "dotnet",
+        "wpf",
+        "winforms",
+        "desktop",
+        "课程作业",
+        "拖拽界面"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/specialized/donet-handjob/INSTRUCTION.md"
+    },
+    {
+      "id": "serenity-skill",
+      "name": "Serenity Investment Thesis Stress Tester",
+      "category": "specialized",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "serenity",
+        "investment",
+        "value chain",
+        "bottleneck",
+        "产业链",
+        "投资调研",
+        "压力测试"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/specialized/serenity-skill/INSTRUCTION.md"
+    },
+    {
+      "id": "simple-replie",
+      "name": "Minimal User Replies Chinese",
+      "category": "specialized",
+      "visibility": "internal",
+      "role": "auxiliary",
+      "canonical": true,
+      "triggers": [
+        "minimal",
+        "replies",
+        "short answers",
+        "极简回复",
+        "中文短答",
+        "不作多余汇报"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/specialized/simple-replie/INSTRUCTION.md"
+    },
+    {
+      "id": "browser-testing-with-devtools",
+      "name": "browser-testing-with-devtools",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "browser-testing-with-devtools",
+        "tests",
+        "real",
+        "browsers",
+        "via",
+        "chrome",
+        "devtools",
+        "mcp"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/browser-testing-with-devtools/INSTRUCTION.md"
+    },
+    {
+      "id": "code-review-and-quality",
+      "name": "code-review-and-quality",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "code-review-and-quality",
+        "conducts",
+        "multi-axis",
+        "review",
+        "before",
+        "merging",
+        "any",
+        "change"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/code-review-and-quality/INSTRUCTION.md"
+    },
+    {
+      "id": "code-simplification",
+      "name": "code-simplification",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "code-simplification",
+        "simplifies",
+        "for",
+        "clarity",
+        "refactoring",
+        "without",
+        "changing"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/code-simplification/INSTRUCTION.md"
+    },
+    {
+      "id": "debugging-and-error-recovery",
+      "name": "debugging-and-error-recovery",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "debugging-and-error-recovery",
+        "guides",
+        "systematic",
+        "root-cause",
+        "debugging",
+        "tests",
+        "fail",
+        "builds"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/debugging-and-error-recovery/INSTRUCTION.md"
+    },
+    {
+      "id": "deprecation-and-migration",
+      "name": "deprecation-and-migration",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "deprecation-and-migration",
+        "manages",
+        "deprecation",
+        "and",
+        "migration",
+        "removing",
+        "old",
+        "systems"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/deprecation-and-migration/INSTRUCTION.md"
+    },
+    {
+      "id": "doubt-driven-development",
+      "name": "doubt-driven-development",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "doubt-driven-development",
+        "subjects",
+        "every",
+        "non-trivial",
+        "decision",
+        "fresh-context",
+        "adversarial",
+        "review",
+        "before",
+        "stands"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/doubt-driven-development/INSTRUCTION.md"
+    },
+    {
+      "id": "frontend-ui-engineering",
+      "name": "frontend-ui-engineering",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "frontend-ui-engineering",
+        "builds",
+        "production-quality",
+        "uis",
+        "building",
+        "modifying",
+        "user-facing",
+        "interfaces"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/frontend-ui-engineering/INSTRUCTION.md"
+    },
+    {
+      "id": "git-workflow-and-versioning",
+      "name": "git-workflow-and-versioning",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "git-workflow-and-versioning",
+        "structures",
+        "git",
+        "workflow",
+        "practices",
+        "making",
+        "any"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/git-workflow-and-versioning/INSTRUCTION.md"
+    },
+    {
+      "id": "idea-refine",
+      "name": "idea-refine",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "idea-refine",
+        "refines",
+        "raw",
+        "into",
+        "sharp",
+        "actionable",
+        "concepts",
+        "through",
+        "structured"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/idea-refine/INSTRUCTION.md"
+    },
+    {
+      "id": "incremental-implementation",
+      "name": "incremental-implementation",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "incremental-implementation",
+        "delivers",
+        "changes",
+        "incrementally",
+        "implementing",
+        "any",
+        "feature",
+        "change",
+        "逐步实现",
+        "incremental",
+        "step-by-step",
+        "vertical slice",
+        "分步"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/incremental-implementation/INSTRUCTION.md"
+    },
+    {
+      "id": "interview-me",
+      "name": "interview-me",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "interview-me",
+        "extracts",
+        "what",
+        "the",
+        "user",
+        "actually",
+        "wants",
+        "instead",
+        "they",
+        "think"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/interview-me/INSTRUCTION.md"
+    },
+    {
+      "id": "observability-and-instrumentation",
+      "name": "observability-and-instrumentation",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "observability-and-instrumentation",
+        "instruments",
+        "production",
+        "behavior",
+        "visible",
+        "and",
+        "diagnosable"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/observability-and-instrumentation/INSTRUCTION.md"
+    },
+    {
+      "id": "performance-optimization",
+      "name": "performance-optimization",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "performance-optimization",
+        "optimizes",
+        "application",
+        "performance",
+        "requirements",
+        "exist",
+        "you",
+        "suspect"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/performance-optimization/INSTRUCTION.md"
+    },
+    {
+      "id": "planning-and-task-breakdown",
+      "name": "planning-and-task-breakdown",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "planning-and-task-breakdown",
+        "breaks",
+        "work",
+        "into",
+        "ordered",
+        "tasks",
+        "you",
+        "have"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/planning-and-task-breakdown/INSTRUCTION.md"
+    },
+    {
+      "id": "security-and-hardening",
+      "name": "security-and-hardening",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "security-and-hardening",
+        "hardens",
+        "against",
+        "vulnerabilities",
+        "handling",
+        "user",
+        "input"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/security-and-hardening/INSTRUCTION.md"
+    },
+    {
+      "id": "source-driven-development",
+      "name": "source-driven-development",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "source-driven-development",
+        "grounds",
+        "every",
+        "implementation",
+        "decision",
+        "official",
+        "documentation",
+        "you"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/source-driven-development/INSTRUCTION.md"
+    },
+    {
+      "id": "spec-driven-development",
+      "name": "spec-driven-development",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "spec-driven-development",
+        "creates",
+        "specs",
+        "before",
+        "coding",
+        "starting",
+        "new",
+        "project",
+        "spec",
+        "specification",
+        "设计文档",
+        "需求定义"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/spec-driven-development/INSTRUCTION.md"
+    },
+    {
+      "id": "ab-test-analysis",
+      "name": "ab-test-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "ab-test-analysis",
+        "analyze",
+        "test",
+        "results",
+        "with",
+        "statistical",
+        "significance",
+        "sample",
+        "size",
+        "validation"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/ab-test-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "analyze-feature-requests",
+      "name": "analyze-feature-requests",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "analyze-feature-requests",
+        "analyze",
+        "and",
+        "list",
+        "feature",
+        "requests",
+        "theme",
+        "strategic",
+        "alignment"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/analyze-feature-requests/INSTRUCTION.md"
+    },
+    {
+      "id": "ansoff-matrix",
+      "name": "ansoff-matrix",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "ansoff-matrix",
+        "ansoff",
+        "matrix",
+        "mapping",
+        "growth",
+        "strategies",
+        "across",
+        "market"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/ansoff-matrix/INSTRUCTION.md"
+    },
+    {
+      "id": "beachhead-segment",
+      "name": "beachhead-segment",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "beachhead-segment",
+        "identify",
+        "the",
+        "first",
+        "beachhead",
+        "market",
+        "segment",
+        "for",
+        "product",
+        "launch"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/beachhead-segment/INSTRUCTION.md"
+    },
+    {
+      "id": "brainstorm-experiments-existing",
+      "name": "brainstorm-experiments-existing",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "brainstorm-experiments-existing",
+        "test",
+        "assumptions",
+        "prototypes",
+        "tests"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/brainstorm-experiments-existing/INSTRUCTION.md"
+    },
+    {
+      "id": "brainstorm-experiments-new",
+      "name": "brainstorm-experiments-new",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "brainstorm-experiments-new",
+        "lean",
+        "startup",
+        "pretotypes",
+        "creates"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/brainstorm-experiments-new/INSTRUCTION.md"
+    },
+    {
+      "id": "brainstorm-ideas-existing",
+      "name": "brainstorm-ideas-existing",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "brainstorm-ideas-existing",
+        "multi-perspective"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/brainstorm-ideas-existing/INSTRUCTION.md"
+    },
+    {
+      "id": "brainstorm-ideas-new",
+      "name": "brainstorm-ideas-new",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "brainstorm-ideas-new",
+        "feature",
+        "initial",
+        "discovery"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/brainstorm-ideas-new/INSTRUCTION.md"
+    },
+    {
+      "id": "brainstorm-okrs",
+      "name": "brainstorm-okrs",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "brainstorm-okrs",
+        "team-level",
+        "okrs",
+        "aligned",
+        "with",
+        "company",
+        "objectives",
+        "qualitative",
+        "measurable"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/brainstorm-okrs/INSTRUCTION.md"
+    },
+    {
+      "id": "business-model",
+      "name": "business-model",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "business-model",
+        "business",
+        "model",
+        "canvas",
+        "with",
+        "all",
+        "building",
+        "blocks"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/business-model/INSTRUCTION.md"
+    },
+    {
+      "id": "cohort-analysis",
+      "name": "cohort-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "cohort-analysis",
+        "perform",
+        "cohort",
+        "user",
+        "engagement",
+        "data",
+        "retention",
+        "curves",
+        "feature"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/cohort-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "competitive-battlecard",
+      "name": "competitive-battlecard",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "competitive-battlecard",
+        "sales-ready",
+        "competitive",
+        "battlecards",
+        "comparing",
+        "your",
+        "product",
+        "against",
+        "specific"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/competitive-battlecard/INSTRUCTION.md"
+    },
+    {
+      "id": "competitor-analysis",
+      "name": "competitor-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "competitor-analysis",
+        "analyze",
+        "competitors",
+        "with",
+        "differentiation",
+        "identifies"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/competitor-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "create-prd",
+      "name": "create-prd",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "create-prd",
+        "product",
+        "requirements",
+        "document",
+        "comprehensive",
+        "8-section",
+        "template",
+        "covering"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/create-prd/INSTRUCTION.md"
+    },
+    {
+      "id": "customer-journey-map",
+      "name": "customer-journey-map",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "customer-journey-map",
+        "end-to-end",
+        "customer",
+        "journey",
+        "map",
+        "with",
+        "stages",
+        "touchpoints",
+        "emotions"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/customer-journey-map/INSTRUCTION.md"
+    },
+    {
+      "id": "draft-nda",
+      "name": "draft-nda",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "draft-nda",
+        "draft",
+        "detailed",
+        "non-disclosure",
+        "agreement",
+        "between",
+        "two",
+        "parties",
+        "covering",
+        "information"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/draft-nda/INSTRUCTION.md"
+    },
+    {
+      "id": "dummy-dataset",
+      "name": "dummy-dataset",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "dummy-dataset",
+        "realistic",
+        "dummy",
+        "datasets",
+        "for",
+        "testing",
+        "with",
+        "customizable",
+        "columns"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/dummy-dataset/INSTRUCTION.md"
+    },
+    {
+      "id": "grammar-check",
+      "name": "grammar-check",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "grammar-check",
+        "identify",
+        "grammar",
+        "logical",
+        "and",
+        "flow",
+        "errors",
+        "text",
+        "suggest",
+        "targeted"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/grammar-check/INSTRUCTION.md"
+    },
+    {
+      "id": "growth-loops",
+      "name": "growth-loops",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "growth-loops",
+        "identify",
+        "growth",
+        "loops",
+        "flywheels",
+        "for",
+        "sustainable",
+        "traction",
+        "evaluates",
+        "loop"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/growth-loops/INSTRUCTION.md"
+    },
+    {
+      "id": "gtm-motions",
+      "name": "gtm-motions",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "gtm-motions",
+        "identify",
+        "the",
+        "best",
+        "gtm",
+        "motions",
+        "and",
+        "tools",
+        "across",
+        "motion"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/gtm-motions/INSTRUCTION.md"
+    },
+    {
+      "id": "gtm-strategy",
+      "name": "gtm-strategy",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "gtm-strategy",
+        "go-to-market",
+        "covering",
+        "marketing",
+        "channels",
+        "messaging",
+        "success",
+        "metrics"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/gtm-strategy/INSTRUCTION.md"
+    },
+    {
+      "id": "ideal-customer-profile",
+      "name": "ideal-customer-profile",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "ideal-customer-profile",
+        "identify",
+        "the",
+        "ideal",
+        "customer",
+        "profile",
+        "icp",
+        "from",
+        "research",
+        "data"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/ideal-customer-profile/INSTRUCTION.md"
+    },
+    {
+      "id": "identify-assumptions-existing",
+      "name": "identify-assumptions-existing",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "identify-assumptions-existing",
+        "feature",
+        "existing",
+        "current",
+        "already",
+        "已有",
+        "当前",
+        "already launched",
+        "deployed",
+        "现有的",
+        "已经上线的"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/identify-assumptions-existing/INSTRUCTION.md"
+    },
+    {
+      "id": "identify-assumptions-new",
+      "name": "identify-assumptions-new",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "identify-assumptions-new",
+        "new",
+        "risk",
+        "scratch",
+        "from scratch",
+        "新建",
+        "全新",
+        "greenfield",
+        "start new",
+        "全新的",
+        "起步阶段"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/identify-assumptions-new/INSTRUCTION.md"
+    },
+    {
+      "id": "intended-vs-implemented",
+      "name": "intended-vs-implemented",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "intended-vs-implemented",
+        "the",
+        "for",
+        "finding",
+        "gap",
+        "between",
+        "what",
+        "supposed"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/intended-vs-implemented/INSTRUCTION.md"
+    },
+    {
+      "id": "interview-script",
+      "name": "interview-script",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "interview-script",
+        "script",
+        "probing",
+        "questions"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/interview-script/INSTRUCTION.md"
+    },
+    {
+      "id": "job-stories",
+      "name": "job-stories",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "job-stories",
+        "job",
+        "stories",
+        "the",
+        "situation",
+        "want",
+        "motivation"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/job-stories/INSTRUCTION.md"
+    },
+    {
+      "id": "lean-canvas",
+      "name": "lean-canvas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "lean-canvas",
+        "lean",
+        "canvas",
+        "with",
+        "problem",
+        "solution",
+        "metrics",
+        "cost",
+        "structure"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/lean-canvas/INSTRUCTION.md"
+    },
+    {
+      "id": "market-segments",
+      "name": "market-segments",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "market-segments",
+        "identify",
+        "3-5",
+        "potential",
+        "customer",
+        "segments",
+        "with",
+        "demographics",
+        "jtbd",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/market-segments/INSTRUCTION.md"
+    },
+    {
+      "id": "market-sizing",
+      "name": "market-sizing",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "market-sizing",
+        "estimate",
+        "market",
+        "size",
+        "tam",
+        "sam",
+        "and",
+        "som",
+        "with"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/market-sizing/INSTRUCTION.md"
+    },
+    {
+      "id": "marketing-ideas",
+      "name": "marketing-ideas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "marketing-ideas",
+        "creative",
+        "cost-effective",
+        "marketing",
+        "with",
+        "channels",
+        "messaging",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/marketing-ideas/INSTRUCTION.md"
+    },
+    {
+      "id": "metrics-dashboard",
+      "name": "metrics-dashboard",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "metrics-dashboard",
+        "define",
+        "and",
+        "product",
+        "metrics",
+        "dashboard",
+        "with",
+        "key",
+        "data"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/metrics-dashboard/INSTRUCTION.md"
+    },
+    {
+      "id": "monetization-strategy",
+      "name": "monetization-strategy",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "monetization-strategy",
+        "3-5",
+        "monetization",
+        "strategies",
+        "with",
+        "audience",
+        "fit",
+        "risks",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/monetization-strategy/INSTRUCTION.md"
+    },
+    {
+      "id": "north-star-metric",
+      "name": "north-star-metric",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "north-star-metric",
+        "define",
+        "north",
+        "star",
+        "metric",
+        "and",
+        "3-5",
+        "supporting",
+        "input",
+        "metrics"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/north-star-metric/INSTRUCTION.md"
+    },
+    {
+      "id": "opportunity-solution-tree",
+      "name": "opportunity-solution-tree",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "opportunity-solution-tree",
+        "opportunity",
+        "solution",
+        "tree",
+        "ost",
+        "structure",
+        "product",
+        "discovery",
+        "map"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/opportunity-solution-tree/INSTRUCTION.md"
+    },
+    {
+      "id": "outcome-roadmap",
+      "name": "outcome-roadmap",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "outcome-roadmap",
+        "transform",
+        "output-focused",
+        "roadmap",
+        "into",
+        "outcome-focused",
+        "one",
+        "that",
+        "communicates",
+        "strategic"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/outcome-roadmap/INSTRUCTION.md"
+    },
+    {
+      "id": "pestle-analysis",
+      "name": "pestle-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "pestle-analysis",
+        "perform",
+        "pestle",
+        "covering",
+        "political",
+        "economic",
+        "social",
+        "technological",
+        "legal"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/pestle-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "porters-five-forces",
+      "name": "porters-five-forces",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "porters-five-forces",
+        "perform",
+        "porter",
+        "five",
+        "forces",
+        "competitive",
+        "rivalry",
+        "supplier",
+        "power"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/porters-five-forces/INSTRUCTION.md"
+    },
+    {
+      "id": "positioning-ideas",
+      "name": "positioning-ideas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "positioning-ideas",
+        "product",
+        "positioning",
+        "differentiated",
+        "from",
+        "competitors",
+        "identifies",
+        "top",
+        "positioning statement",
+        "category narrative",
+        "产品定位",
+        "定位陈述"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/positioning-ideas/INSTRUCTION.md"
+    },
+    {
+      "id": "pre-mortem",
+      "name": "pre-mortem",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "pre-mortem",
+        "run",
+        "risk",
+        "prd",
+        "launch",
+        "categorizes",
+        "risks",
+        "tigers"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/pre-mortem/INSTRUCTION.md"
+    },
+    {
+      "id": "pricing-strategy",
+      "name": "pricing-strategy",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "pricing-strategy",
+        "analyze",
+        "and",
+        "pricing",
+        "strategies",
+        "including",
+        "models",
+        "competitive"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/pricing-strategy/INSTRUCTION.md"
+    },
+    {
+      "id": "prioritization-frameworks",
+      "name": "prioritization-frameworks",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "prioritization-frameworks",
+        "reference",
+        "guide",
+        "prioritization",
+        "frameworks",
+        "with",
+        "formulas",
+        "when-to-use",
+        "guidance",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/prioritization-frameworks/INSTRUCTION.md"
+    },
+    {
+      "id": "prioritize-assumptions",
+      "name": "prioritize-assumptions",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "prioritize-assumptions",
+        "assumptions",
+        "impact",
+        "risk",
+        "matrix",
+        "and",
+        "suggest",
+        "experiments",
+        "assumption mapping",
+        "riskiest assumption",
+        "假设识别",
+        "高风险假设"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/prioritize-assumptions/INSTRUCTION.md"
+    },
+    {
+      "id": "prioritize-features",
+      "name": "prioritize-features",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "prioritize-features",
+        "backlog",
+        "feature",
+        "based",
+        "impact",
+        "effort",
+        "risk",
+        "and",
+        "feature prioritizing",
+        "backlog prioritization",
+        "功能优先级划分",
+        "需求排序"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/prioritize-features/INSTRUCTION.md"
+    },
+    {
+      "id": "privacy-policy",
+      "name": "privacy-policy",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "privacy-policy",
+        "draft",
+        "detailed",
+        "privacy",
+        "policy",
+        "covering",
+        "data",
+        "types",
+        "jurisdiction",
+        "gdpr"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/privacy-policy/INSTRUCTION.md"
+    },
+    {
+      "id": "product-name",
+      "name": "product-name",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "product-name",
+        "unique",
+        "memorable",
+        "product",
+        "names",
+        "with",
+        "rationale",
+        "aligned",
+        "brand"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/product-name/INSTRUCTION.md"
+    },
+    {
+      "id": "product-strategy",
+      "name": "product-strategy",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "product-strategy",
+        "comprehensive",
+        "product",
+        "the",
+        "9-section",
+        "canvas",
+        "vision"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/product-strategy/INSTRUCTION.md"
+    },
+    {
+      "id": "product-vision",
+      "name": "product-vision",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "product-vision",
+        "inspiring",
+        "achievable",
+        "and",
+        "emotional",
+        "product",
+        "vision",
+        "that",
+        "motivates"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/product-vision/INSTRUCTION.md"
+    },
+    {
+      "id": "release-notes",
+      "name": "release-notes",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "release-notes",
+        "user-facing",
+        "release",
+        "notes",
+        "from",
+        "tickets",
+        "prds",
+        "changelogs",
+        "creates"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/release-notes/INSTRUCTION.md"
+    },
+    {
+      "id": "retro",
+      "name": "retro",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "retro",
+        "facilitate",
+        "structured",
+        "sprint",
+        "retrospective",
+        "what",
+        "went",
+        "well",
+        "didn",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/retro/INSTRUCTION.md"
+    },
+    {
+      "id": "review-resume",
+      "name": "review-resume",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "review-resume",
+        "comprehensive",
+        "resume",
+        "review",
+        "and",
+        "tailoring",
+        "against",
+        "best",
+        "practices",
+        "including"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/review-resume/INSTRUCTION.md"
+    },
+    {
+      "id": "sentiment-analysis",
+      "name": "sentiment-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "sentiment-analysis",
+        "analyze",
+        "user",
+        "feedback",
+        "data",
+        "identify",
+        "segments",
+        "with",
+        "sentiment",
+        "scores"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/sentiment-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "shipping-artifacts",
+      "name": "shipping-artifacts",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "shipping-artifacts",
+        "the",
+        "durable",
+        "documentation",
+        "set",
+        "that",
+        "makes",
+        "ai-built",
+        "vibe-coded",
+        "app"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/shipping-artifacts/INSTRUCTION.md"
+    },
+    {
+      "id": "sprint-plan",
+      "name": "sprint-plan",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "sprint-plan",
+        "sprint",
+        "with",
+        "capacity",
+        "estimation",
+        "story",
+        "selection",
+        "dependency",
+        "mapping"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/sprint-plan/INSTRUCTION.md"
+    },
+    {
+      "id": "sql-queries",
+      "name": "sql-queries",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "sql-queries",
+        "sql",
+        "queries",
+        "from",
+        "natural",
+        "language",
+        "descriptions",
+        "supports",
+        "bigquery"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/sql-queries/INSTRUCTION.md"
+    },
+    {
+      "id": "stakeholder-map",
+      "name": "stakeholder-map",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "stakeholder-map",
+        "stakeholder",
+        "map",
+        "power",
+        "interest",
+        "grid",
+        "identify",
+        "communication"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/stakeholder-map/INSTRUCTION.md"
+    },
+    {
+      "id": "startup-canvas",
+      "name": "startup-canvas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "startup-canvas",
+        "startup",
+        "canvas",
+        "combining",
+        "product",
+        "sections",
+        "and",
+        "business"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/startup-canvas/INSTRUCTION.md"
+    },
+    {
+      "id": "strategy-red-team",
+      "name": "strategy-red-team",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "strategy-red-team",
+        "red-team",
+        "prd",
+        "roadmap",
+        "attacking",
+        "its",
+        "load-bearing",
+        "assumptions",
+        "before"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/strategy-red-team/INSTRUCTION.md"
+    },
+    {
+      "id": "summarize-interview",
+      "name": "summarize-interview",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "summarize-interview",
+        "transcript",
+        "into",
+        "template",
+        "interview transcript",
+        "customer quote",
+        "访谈整理",
+        "用户反馈提取"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/summarize-interview/INSTRUCTION.md"
+    },
+    {
+      "id": "summarize-meeting",
+      "name": "summarize-meeting",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "summarize-meeting",
+        "transcript",
+        "into",
+        "structured",
+        "notes",
+        "with",
+        "date",
+        "participants",
+        "meeting notes",
+        "action items",
+        "会议纪要",
+        "待办事项提取"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/summarize-meeting/INSTRUCTION.md"
+    },
+    {
+      "id": "swot-analysis",
+      "name": "swot-analysis",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "swot-analysis",
+        "perform",
+        "detailed",
+        "swot",
+        "threats"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/swot-analysis/INSTRUCTION.md"
+    },
+    {
+      "id": "test-scenarios",
+      "name": "test-scenarios",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "test-scenarios",
+        "comprehensive",
+        "test",
+        "scenarios",
+        "from",
+        "user",
+        "stories",
+        "with",
+        "objectives"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/test-scenarios/INSTRUCTION.md"
+    },
+    {
+      "id": "user-personas",
+      "name": "user-personas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "user-personas",
+        "refined",
+        "user",
+        "personas",
+        "from",
+        "research",
+        "data",
+        "with",
+        "jtbd"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/user-personas/INSTRUCTION.md"
+    },
+    {
+      "id": "user-segmentation",
+      "name": "user-segmentation",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "user-segmentation",
+        "segment",
+        "users",
+        "from",
+        "feedback",
+        "data",
+        "based",
+        "behavior",
+        "jtbd",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/user-segmentation/INSTRUCTION.md"
+    },
+    {
+      "id": "user-stories",
+      "name": "user-stories",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "user-stories",
+        "user",
+        "stories",
+        "following",
+        "the",
+        "card",
+        "conversation",
+        "confirmation",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/user-stories/INSTRUCTION.md"
+    },
+    {
+      "id": "value-prop-statements",
+      "name": "value-prop-statements",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "value-prop-statements",
+        "value",
+        "proposition",
+        "statements",
+        "for",
+        "marketing",
+        "sales",
+        "and",
+        "onboarding"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/value-prop-statements/INSTRUCTION.md"
+    },
+    {
+      "id": "value-proposition",
+      "name": "value-proposition",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "value-proposition",
+        "detailed",
+        "value",
+        "proposition",
+        "6-part",
+        "jtbd",
+        "template",
+        "who"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/value-proposition/INSTRUCTION.md"
+    },
+    {
+      "id": "wwas",
+      "name": "wwas",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "wwas",
+        "product",
+        "backlog",
+        "items",
+        "why-what-acceptance",
+        "format",
+        "independent",
+        "valuable",
+        "testable"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/planning/pm-skills/wwas/INSTRUCTION.md"
+    },
+    {
+      "id": "embedded-captions",
+      "name": "embedded-captions",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "embedded-captions",
+        "add",
+        "captions",
+        "talking-head",
+        "video",
+        "one",
+        "catalog",
+        "visual",
+        "identities",
+        "behind"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/embedded-captions/INSTRUCTION.md"
+    },
+    {
+      "id": "faceless-explainer",
+      "name": "faceless-explainer",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "faceless-explainer",
+        "video",
+        "workflow",
+        "arbitrary",
+        "text",
+        "article",
+        "notes",
+        "topic",
+        "brief",
+        "narrator_scripts"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/faceless-explainer/INSTRUCTION.md"
+    },
+    {
+      "id": "general-video",
+      "name": "general-video",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "general-video"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/general-video/INSTRUCTION.md"
+    },
+    {
+      "id": "graphic-overlays",
+      "name": "graphic-overlays",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "graphic-overlays",
+        "package",
+        "existing",
+        "talking-head",
+        "podcast",
+        "video",
+        "layering",
+        "timed",
+        "designed"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/graphic-overlays/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-animation",
+      "name": "hyperframes-animation",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-animation",
+        "all",
+        "animation",
+        "knowledge",
+        "for",
+        "hyperframes",
+        "atomic",
+        "motion",
+        "rules",
+        "multi-phase"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-animation/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-cli",
+      "name": "hyperframes-cli",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-cli",
+        "hyperframes",
+        "cli",
+        "dev",
+        "loop",
+        "running",
+        "npx",
+        "init"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-cli/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-core",
+      "name": "hyperframes-core",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-core",
+        "hyperframes",
+        "html",
+        "composition",
+        "contract",
+        "for",
+        "structure",
+        "data",
+        "attributes",
+        "core",
+        "核心库"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-core/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-creative",
+      "name": "hyperframes-creative",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-creative",
+        "non-animation",
+        "creative",
+        "direction",
+        "for",
+        "hyperframes",
+        "videos",
+        "spec"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-creative/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-media",
+      "name": "hyperframes-media",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-media",
+        "asset",
+        "preprocessing",
+        "for",
+        "hyperframes",
+        "compositions",
+        "multi-provider",
+        "tts",
+        "heygen",
+        "elevenlabs"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-media/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-registry",
+      "name": "hyperframes-registry",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-registry",
+        "install",
+        "and",
+        "wire",
+        "registry",
+        "blocks",
+        "components",
+        "into",
+        "hyperframes",
+        "compositions"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/hyperframes-registry/INSTRUCTION.md"
+    },
+    {
+      "id": "motion-graphics",
+      "name": "motion-graphics",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "motion-graphics"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/motion-graphics/INSTRUCTION.md"
+    },
+    {
+      "id": "pr-to-video",
+      "name": "pr-to-video",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "pr-to-video",
+        "workflow",
+        "github",
+        "pull",
+        "request",
+        "url",
+        "like",
+        "com",
+        "owner",
+        "repo"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/pr-to-video/INSTRUCTION.md"
+    },
+    {
+      "id": "product-launch-video",
+      "name": "product-launch-video",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "product-launch-video"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/product-launch-video/INSTRUCTION.md"
+    },
+    {
+      "id": "remotion-to-hyperframes",
+      "name": "remotion-to-hyperframes",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "remotion-to-hyperframes",
+        "port",
+        "existing",
+        "remotion",
+        "react",
+        "composition",
+        "hyperframes",
+        "html",
+        "only",
+        "convert",
+        "转换工具"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/remotion-to-hyperframes/INSTRUCTION.md"
+    },
+    {
+      "id": "website-to-video",
+      "name": "website-to-video",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "website-to-video",
+        "capture",
+        "general",
+        "website",
+        "url",
+        "and",
+        "turn",
+        "into",
+        "hyperframes",
+        "video"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes/website-to-video/INSTRUCTION.md"
+    },
+    {
+      "id": "hyperframes-read-first",
+      "name": "hyperframes-read-first",
+      "category": "frontend",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "hyperframes-read-first"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/frontend/hyperframes-read-first/INSTRUCTION.md"
+    },
+    {
+      "id": "api-and-interface-design",
+      "name": "api-and-interface-design",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "api-and-interface-design",
+        "guides",
+        "stable",
+        "api",
+        "and",
+        "interface",
+        "designing"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/api-and-interface-design/INSTRUCTION.md"
+    },
+    {
+      "id": "ci-cd-and-automation",
+      "name": "ci-cd-and-automation",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "ci-cd-and-automation",
+        "automates",
+        "pipeline",
+        "setup",
+        "setting",
+        "modifying",
+        "and"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/ci-cd-and-automation/INSTRUCTION.md"
+    },
+    {
+      "id": "context-engineering",
+      "name": "context-engineering",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "context-engineering",
+        "optimizes",
+        "context",
+        "setup",
+        "starting",
+        "new",
+        "session",
+        "上下文",
+        "上下文工程"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/context-engineering/INSTRUCTION.md"
+    },
+    {
+      "id": "documentation-and-adrs",
+      "name": "documentation-and-adrs",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "documentation-and-adrs",
+        "records",
+        "decisions",
+        "and",
+        "documentation",
+        "making",
+        "architectural",
+        "changing"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/documentation-and-adrs/INSTRUCTION.md"
+    },
+    {
+      "id": "shipping-and-launch",
+      "name": "shipping-and-launch",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "shipping-and-launch",
+        "prepares",
+        "production",
+        "launches",
+        "preparing",
+        "deploy",
+        "you",
+        "need"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/shipping-and-launch/INSTRUCTION.md"
+    },
+    {
+      "id": "using-agent-skills",
+      "name": "using-agent-skills",
+      "category": "engineering",
+      "visibility": "internal",
+      "role": "primary",
+      "canonical": true,
+      "triggers": [
+        "using-agent-skills",
+        "discovers",
+        "and",
+        "invokes",
+        "agent",
+        "starting",
+        "session",
+        "using-agent",
+        "调用技能"
+      ],
+      "priority": 1,
+      "instructionPath": "internal-skills/engineering/development/agent-skills/using-agent-skills/INSTRUCTION.md"
+    }
+  ]
+}

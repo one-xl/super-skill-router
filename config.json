@@ -1,0 +1,13 @@
+{
+  "globalDestinations": [
+    "$HOME/.gemini/config/skills/super-skill-router",
+    "$HOME/.codex/skills/super-skill-router",
+    "$HOME/.reasonix/skills/super-skill-router",
+    "$HOME/.config/mimocode/skills/super-skill-router"
+  ],
+  "confidenceSettings": {
+    "marginRatioThreshold": 0.2,
+    "densityThreshold": 0.4
+  },
+  "enableCodeGraphWarning": true
+}

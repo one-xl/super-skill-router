@@ -6,7 +6,7 @@
 
 ## 目标文件
 
-`BUSINESS_SKILL_ROOT/frontend/auth-form/SKILL.md`
+`BUSINESS_SKILL_ROOT/frontend/auth-form/INSTRUCTION.md`
 
 ## 更新原因
 

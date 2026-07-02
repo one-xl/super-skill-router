@@ -1,0 +1,443 @@
+version: "1.0"
+
+stage_prompts:
+  topic_init:
+    system: "You are a rigorous research planner."
+    user: |
+      Create a SMART research goal in markdown.
+
+      Topic: {topic}
+      Domains: {domains}
+      Project: {project_name}
+      Quality threshold: {quality_threshold}
+
+      Required sections: Topic, Scope, SMART Goal, Constraints, Success Criteria, Generated.
+
+  problem_decompose:
+    system: "You are a senior research strategist."
+    user: |
+      Decompose this research problem into at least 4 prioritized sub-questions.
+
+      Topic: {topic}
+
+      Output markdown with sections: Source, Sub-questions, Priority Ranking, Risks.
+
+      Goal context:
+      {goal_text}
+
+  search_strategy:
+    json_mode: true
+    system: "You design literature retrieval strategies and source verification plans. Aim for comprehensive 30-60 reference coverage."
+    user: |
+      Create a merged search strategy package.
+
+      Return JSON with keys: search_plan_yaml, sources.
+
+      search_plan_yaml must be valid YAML text with search_strategies containing at least 3 strategies, each with 3-5 diverse keyword queries. Generate at least 8 total queries covering the core topic, related methods, benchmarks/datasets, theory, and applications.
+
+      Topic: {topic}
+
+      Problem tree:
+      {problem_tree}
+
+  literature_collect:
+    json_mode: true
+    system: "You are a literature mining assistant. Use only real retrievable papers when connected to literature APIs or search tools."
+    user: |
+      Generate candidate papers from the search plan.
+
+      Return JSON: {candidates:[...]} with >=30 rows. Each candidate must include id,title,source,url,year,abstract,collected_at.
+
+      Topic: {topic}
+
+      Search plan:
+      {plan_text}
+
+  literature_screen:
+    json_mode: true
+    system: "You are a strict domain-aware reviewer. Reject off-topic papers aggressively."
+    user: |
+      Perform merged relevance+quality screening and return shortlist.
+
+      Return JSON: {shortlist:[...]} each with title, cite_key if present, relevance_score, quality_score, keep_reason. Preserve all original fields from the input.
+
+      Topic: {topic}
+      Domains: {domains}
+      Threshold: {quality_threshold}
+
+      Candidates JSONL:
+      {candidates_text}
+
+  knowledge_extract:
+    json_mode: true
+    system: "You extract high-signal evidence cards from papers."
+    user: |
+      Extract structured knowledge cards from shortlist.
+
+      Return JSON: {cards:[{card_id,title,cite_key,problem,method,data,metrics,findings,limitations,citation}]}.
+
+      Preserve cite_key fields exactly when present.
+
+      Shortlist:
+      {shortlist}
+
+  synthesis:
+    system: "You are a synthesis specialist for literature reviews."
+    user: |
+      Produce merged synthesis output with topic clusters and research gaps.
+
+      Output markdown with sections: Cluster Overview, Cluster 1..N, Gap 1..N, Prioritized Opportunities.
+
+      Topic: {topic}
+
+      Cards context:
+      {cards_context}
+
+  hypothesis_gen:
+    system: "You formulate testable scientific hypotheses."
+    user: |
+      Generate at least 2 falsifiable hypotheses from synthesis.
+
+      For each hypothesis provide rationale, measurable prediction, and failure condition.
+
+      Synthesis:
+      {synthesis}
+
+  theoretical_bounds:
+    system: "You are a theoretical computer scientist and ML algorithm analyst."
+    user: |
+      Derive preliminary theoretical bounds for the proposed approach.
+
+      Include assumptions, notation, proof sketch, time complexity, space complexity, and failure cases.
+
+      Topic:
+      {topic}
+
+      Hypotheses:
+      {hypotheses}
+
+      Method idea:
+      {method_idea}
+
+  experiment_design:
+    system: "You are a principal investigator designing ML experiments."
+    user: |
+      {preamble}
+
+      Design an experiment plan as YAML.
+
+      Required keys: objectives,datasets,baselines,proposed_methods,ablations,metrics,risks,compute_budget.
+
+      Hypotheses:
+      {hypotheses}
+
+  code_generation:
+    max_tokens: 8192
+    system: "You are a computational scientist who writes real, runnable experiments. Your code implements actual algorithms with real mathematical operations. Never fake results. Use numpy for numerical computation when appropriate. Keep code deterministic."
+    user: |
+      Generate a Python experiment project for the following research topic:
+      TOPIC: {topic}
+
+      Critical requirements:
+      1. Implement real algorithms using arrays and mathematical formulas.
+      2. Define real objective/loss functions.
+      3. Run real optimization or evaluation loops that compute actual metrics.
+      4. Use deterministic seeds.
+      5. Implement convergence stopping criteria; do not rely only on fixed loops.
+      6. main.py must print metric lines as `name: value`.
+      7. main.py must write `results.json`.
+      8. Forbid subprocess, os.system, eval, exec, shutil, socket.
+      9. Follow NumPy 2.x compatibility rules.
+
+      Output multiple files using:
+      ```filename:main.py
+      # code
+      ```
+
+      Primary metric key: {metric}
+      Package hint: {pkg_hint}
+
+      Experiment plan:
+      {exp_plan}
+
+  resource_planning:
+    json_mode: true
+    system: "You are an experiment scheduler."
+    user: |
+      Create schedule JSON with GPU/time estimates.
+
+      Schema: {tasks:[{id,name,depends_on,gpu_count,estimated_minutes,priority}], total_gpu_budget, generated}.
+
+      Experiment plan:
+      {exp_plan}
+
+  experiment_run_check:
+    system: "You are a reproducibility auditor for computational experiments."
+    user: |
+      Before running the full experiment, verify that the experiment plan and code include:
+      - Pilot run with `TIME_ESTIMATE: Xs`
+      - deterministic seeds
+      - real objective/loss/metric computation
+      - convergence criteria
+      - time_guard or budget guard
+      - structured `results.json`
+      - logs for warnings/errors/hardware
+
+      Return PASS or BLOCK with required fixes.
+
+      Plan:
+      {exp_plan}
+
+      Code summary:
+      {code_summary}
+
+  result_analysis:
+    system: "You are a quantitative ML analyst. Always cite exact numbers from provided data."
+    user: |
+      {preamble}
+
+      {data_context}
+
+      Analyze run metrics and produce markdown report with exact values.
+
+      Required sections: Metrics Summary, Comparative Findings, Statistical Checks, Limitations, Conclusion.
+
+      Run context:
+      {context}
+
+  research_decision:
+    system: "You are a research program lead making go/no-go decisions."
+    user: |
+      Make a PROCEED, REFINE, or PIVOT decision from analysis.
+
+      Output markdown with: Decision, Justification, Evidence, Next Actions.
+
+      Analysis:
+      {analysis}
+
+  paper_outline:
+    max_tokens: 8192
+    system: "You are an academic writing planner."
+    user: |
+      {preamble}
+
+      Create a detailed paper outline in markdown with per-section goals, Figure 1 plan, and evidence links.
+
+      {topic_constraint}
+      {feedback}
+
+      Analysis:
+      {analysis}
+
+      Decision:
+      {decision}
+
+  paper_draft:
+    max_tokens: 32768
+    system: |
+      You are a top-tier ML paper author writing for NeurIPS/ICML/ICLR.
+      Use only real experimental data and verified project/literature facts.
+      Match every metric value exactly to provided experiment outputs.
+      Favor 1-2 core ideas, strong baselines, ablations, honest limitations, and reproducibility.
+    user: |
+      {preamble}
+
+      Write a full-length paper draft section by section in markdown, suitable for a top-tier ML conference.
+
+      Required sections: Title, Abstract, Introduction, Related Work, Method, Experiments, Results, Discussion, Limitations, Conclusion.
+      Do not include References; they will be generated separately.
+
+      Length targets:
+      - Abstract: 150-250 words
+      - Introduction: 800-1000 words
+      - Related Work: 600-800 words
+      - Method: 1000-1500 words
+      - Experiments: 800-1200 words
+      - Results: 600-800 words
+      - Discussion: 400-600 words
+      - Limitations: 200-300 words
+      - Conclusion: 200-300 words
+      - Total main body: 5000-6500 words unless venue/page limits require otherwise.
+
+      {topic_constraint}
+      {exp_metrics_instruction}
+      {citation_instruction}
+
+      Outline:
+      {outline}
+
+  peer_review:
+    max_tokens: 8192
+    system: "You are a balanced conference reviewer who is rigorous about methodology-evidence consistency."
+    user: |
+      Simulate peer review from at least 2 reviewer perspectives.
+
+      Check topic focus, methodology-evidence consistency, trial count, paper length, novelty, strong baselines, ablations, reproducibility, limitations, and top-conference score from 1-10.
+
+      Paper draft:
+      {draft}
+
+      Experiment evidence:
+      {experiment_evidence}
+
+  paper_revision:
+    max_tokens: 32768
+    system: "You are a paper revision expert for NeurIPS/ICML/ICLR submissions. Never shorten existing sections unless required by page limits; improve evidence alignment and clarity."
+    user: |
+      Revise the paper draft to address all review comments.
+
+      Maintain claim-evidence consistency and section depth. Return revised markdown only.
+
+      {topic_constraint}
+
+      Draft:
+      {draft}
+
+      Reviews:
+      {reviews}
+
+  quality_gate:
+    json_mode: true
+    system: "You are a final quality gate evaluator."
+    user: |
+      Evaluate revised paper quality and return JSON.
+
+      Schema: {score_1_to_10:number, verdict:string, strengths:[...], weaknesses:[...], required_actions:[...]}.
+
+      Threshold: {quality_threshold}
+
+      Paper:
+      {revised}
+
+  citation_verify:
+    json_mode: true
+    system: "You are a citation integrity auditor."
+    user: |
+      Verify citation existence, relevance, and claim support.
+
+      Return JSON: {verdict:string, invalid_citations:[...], weak_citations:[...], unsupported_claims:[...], required_actions:[...]}.
+
+      Check DOI/arXiv/URL, year, venue, topical relevance, and whether each citation supports the cited claim.
+
+      Paper:
+      {paper}
+
+      BibTeX or citation cards:
+      {citations}
+
+  third_party_review:
+    max_tokens: 8192
+    system: "You are an extremely strict external expert reviewer for a top AI conference. Look for reasons to reject unless evidence is strong."
+    user: |
+      Review this paper as an external third-party expert.
+
+      Focus on novelty, evidence sufficiency, baselines, ablations, topic discipline, reproducibility, theoretical soundness, writing clarity, and citation relevance.
+
+      Provide:
+      - summary
+      - major weaknesses
+      - minor weaknesses
+      - fabrication or unsupported-claim risks
+      - required experiments or revisions
+      - score 1-10
+      - final recommendation
+
+      Paper:
+      {paper}
+
+      Evidence package:
+      {evidence}
+
+  rebuttal:
+    max_tokens: 8192
+    system: "You are a senior author preparing a rigorous rebuttal and revision plan."
+    user: |
+      Create a rebuttal and action plan for the reviewer feedback.
+
+      Decide whether each issue requires:
+      - manuscript-only revision
+      - experiment REFINE -> Stage 13
+      - paper PIVOT -> Stage 16
+      - no action, with justification
+
+      Feedback:
+      {reviews}
+
+      Current paper:
+      {paper}
+
+      Evidence:
+      {evidence}
+
+  knowledge_archive:
+    system: "You produce reproducibility-focused research retrospectives."
+    user: |
+      {preamble}
+
+      Write retrospective archive markdown with lessons, reproducibility notes, and future work.
+
+      Decision:
+      {decision}
+
+      Analysis:
+      {analysis}
+
+      Revised paper:
+      {revised}
+
+  export_publish:
+    max_tokens: 16384
+    system: "You are a publication formatting editor."
+    user: |
+      Format revised paper into clean final markdown or LaTeX-ready structure for publication export.
+
+      Preserve content quality and readability.
+
+      Input paper:
+      {revised}
+
+repair_prompts:
+  code_repair:
+    system: "You fix Python code validation errors while preserving functionality."
+    user: |
+      The file `{fname}` in the experiment project has validation errors. Fix all issues and return only the corrected file.
+
+      Validation issues:
+      {issues_text}
+
+      All project files:
+      {all_files_ctx}
+
+      Do not use subprocess, os.system, eval, exec, or network/shell calls.
+
+  iterative_repair:
+    system: "You fix Python code issues and runtime numerical bugs by diagnosing root causes."
+    user: |
+      Fix all issues in the experiment code and return corrected Python code using ```filename:xxx.py format.
+
+      If NaN/Inf or RuntimeWarning appears, fix the actual numerical source rather than suppressing it.
+
+      Issues found:
+      {issue_text}
+
+      All project files:
+      {all_files_ctx}
+
+  iterative_improve:
+    max_tokens: 8192
+    system: "You improve experiment projects and return valid executable Python code."
+    user: |
+      Improve the experiment code based on prior run results.
+
+      Return improved files using ```filename:xxx.py format.
+
+      Primary metric key: {metric_key}
+      Metric direction: {metric_direction}
+
+      Do not use subprocess, os.system, eval, exec, or network/shell calls.
+
+      Current project files:
+      {files_context}
+
+      Run summaries:
+      {run_summaries}

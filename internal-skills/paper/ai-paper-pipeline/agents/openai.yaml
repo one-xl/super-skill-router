@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI Paper Pipeline"
+  short_description: "Rigorous AI paper pipeline"
+  default_prompt: "Use $ai-paper-pipeline to run a truthful AI conference paper workflow from research plan through experiments, LaTeX draft, evidence checks, and rebuttal iteration."
+
+policy:
+  allow_implicit_invocation: true

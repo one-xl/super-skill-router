@@ -1,21 +1,27 @@
-# Contributing
+# Contributing to Super Skill Router
 
-欢迎贡献新的路由规则、模板和示例 Skill。请保持本项目的核心定位：这是 Skill Router，不是万能知识库。
+欢迎为本项目做贡献。在新增、修改或重构技能库结构时，请遵守以下流程规范。
 
-## 贡献原则
+## 新增专业领域 Skill 的规范步骤
 
-- 保持内容简洁。
-- 不加入个人业务或私有项目上下文。
-- 不把大量专业知识写入 Router。
-- 新增大类时更新 `skills/_super-skill/CATEGORY_INDEX.md`。
-- 新增子类时更新对应分类的 `SUBCATEGORY_INDEX.md`。
-- 修改完整 Skill 时检查对应 `SKILL_TAG.md` 是否需要同步更新。
-
-## 提交流程
-
-1. 创建或修改最小必要文件。
-2. 确认没有扫描式、全量读取式说明。
-3. 确认标签文件只用于判断。
-4. 确认示例内容可泛化。
-5. 提交 Pull Request，并说明修改原因和影响范围。
-
+1. **新建技能目录**：
+   在 `internal-skills/[category]/[subcategory]/` 下建立技能物理文件夹。
+2. **建立指令文件**：
+   在物理目录下建立 `INSTRUCTION.md` 和 `SKILL_TAG.md`（可以使用 `templates/` 下的模板文件）。
+3. **注册至 Manifest 配置文件**：
+   将技能的 id、名称、instructionPath 物理路径、触发词以及辅助关联等信息，注册至项目根目录下的 `skills-manifest.json` 中。
+4. **运行触发词深度去重**：
+   运行以下命令，自动迭代擦除重合度高的触发词：
+   ```bash
+   node scripts/cleanup-manifest-triggers.js
+   ```
+5. **执行健康度体检**：
+   ```bash
+   node scripts/doctor.js
+   ```
+   体检必须通过（诊断结果为 PASS，0 错误、0 警告）。
+6. **执行全局镜像分发**：
+   ```bash
+   node scripts/route.js --audit --update
+   ```
+   确认待提交的工作树极其干净且只包含新增 Skill 及清单文件。
